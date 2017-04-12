@@ -5,7 +5,7 @@ desc:'A mod that adds cool things to the game. Currently have berries and juice.
 engineVersion:1,
 manifest:'ModManifest.js',
 requires:['Default dataset*'],
-sheets:{'honeySheet':'http://i.imgur.com/bhNRZSv.png'},//custom stylesheet (note : broken in IE and Edge for the time being)
+sheets:{'imageSheet':'http://i.imgur.com/LhvWFLA.png'},//custom stylesheet (note : broken in IE and Edge for the time being)
 func:function()
 {
 	//mod to add berries and juice
@@ -14,7 +14,7 @@ func:function()
 	new G.Res({
 		name:'Fruit Juice',
 		desc:'[Fruit Juice] tastes better than [water].',
-		icon:[1,0,'honeySheet'],
+		icon:[0,1,'imageSheet'],
 		turnToByContext:{'eat':{'health':0.05,'happiness':0.1},'decay':{'spoiled food':0.2}},//this basically translates to : "when eaten, generate some health and happiness; when rotting, turn into either nothing or some spoiled food"
 		partOf:'food',
 		category:'food',
@@ -22,7 +22,7 @@ func:function()
 		new G.Res({
 		name:'Berry Juice',
 		desc:'[Berry Juice] tastes better than [water].',
-		icon:[1,0,'honeySheet'],
+		icon:[0,1,'imageSheet'],
 		turnToByContext:{'eat':{'health':0.05,'happiness':0.1},'decay':{'spoiled food':0.2}},//this basically translates to : "when eaten, generate some health and happiness; when rotting, turn into either nothing or some spoiled food"
 		partOf:'food',
 		category:'food',
@@ -30,7 +30,7 @@ func:function()
 		new G.Res({
 		name:'Berries',
 		desc:'[Berries] taste sweet, but spoil quickly.',
-		icon:[1,0,'honeySheet'],
+		icon:[1,1,'imageSheet'],
 		turnToByContext:{'eat':{'health':0.05,'happiness':0.1},'decay':{'spoiled food':0.7}},//this basically translates to : "when eaten, generate some health and happiness; when rotting, turn into either nothing or some spoiled food"
 		partOf:'food',
 		category:'food',
@@ -50,7 +50,7 @@ func:function()
 	new G.Tech({
 		name:'Berry Picking',
 		desc:'@[gatherer]s can find berries.',
-		icon:[0,1,'honeySheet'],
+		icon:[0,1,'imageSheet'],
 		cost:{'insight':25},
 		req:{'plant lore':true},
 	});
@@ -58,7 +58,7 @@ func:function()
 		new G.Tech({
 		name:'Juice Making',
 		desc:'@[artisan]s can make juice.',
-		icon:[0,1,'honeySheet'],
+		icon:[1,1,'imageSheet'],
 		cost:{'insight':20},
 		req:{'plant lore':true},
 	});
@@ -68,7 +68,7 @@ func:function()
   new G.Trait({
 		name:'Juice Love',
 		desc:'@your people appreciate [fruit Juice] and [Berry Juice] twice as much and will be twice as happy from consuming it.',
-		icon:[1,1,'honeySheet'],
+		icon:[1,1,'imageSheet'],
 		chance:50,
 		req:{'Juice Making':true, 'Berry Picking':true},
 		effects:[
