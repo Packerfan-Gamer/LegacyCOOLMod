@@ -59,7 +59,7 @@ func:function()
 		name:'Juice Making',
 		desc:'@[artisan]s can make juice.',
 		icon:[0,1,'honeySheet'],
-		cost:{'insight':25},
+		cost:{'insight':20},
 		req:{'plant lore':true},
 	});
 	
