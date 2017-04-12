@@ -60,6 +60,8 @@ func:function()
 	//Then we augment the base data to incorporate our new resources :
 		//adding berries as something that can be gathered from grass
 	//G.getDict('grass').res['gather']['Berries']=0.1;
+	//adding wheat as something that can come from grass
+	G.getDict('grass').res['gather']['Wheat']=0.1;
 		//adding a new mode to artisans so they can make juice from fruit
 	G.getDict('artisan').modes['MakeJuiceFruit']={name:'Make Juice from Fruit',desc:'Use fruit to make juice.',req:{'Juice Making':true},use:{'stone tools':1}};
 		//adding a new effect to artisans that handles the actual honeycomb creation and is only active when 'make honeycomb' is active.
