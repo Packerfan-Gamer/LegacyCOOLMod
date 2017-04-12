@@ -39,6 +39,24 @@ func:function()
 		category:'food',
 	});
 	
+		new G.Res({
+		name:'Wheat',
+		desc:'[Wheat] tastes unpleasant but can be used for many things. You can grind wheat into flour, or make beer',
+		icon:[0,0,'imageSheet'], //TODO: Image for wheat
+		turnToByContext:{'eat':{'health':-0.5,'happiness':-0.3},'decay':{'spoiled food':0.3}},
+		partOf:'grain',
+		category:'food',
+	});
+	
+		new G.Res({
+		name:'Barley',
+		desc:'[Barley] tastes unpleasant but can be used for many things. You can grind it into flour, which is used in bread-making',
+		icon:[0,0,'imageSheet'], //TODO: Image for wheat
+		turnToByContext:{'eat':{'health':-0.5,'happiness':-0.3},'decay':{'spoiled food':0.3}},
+		partOf:'grain',
+		category:'food',
+	});
+	
 	//Then we augment the base data to incorporate our new resources :
 		//adding berries as something that can be gathered from grass
 	//G.getDict('grass').res['gather']['Berries']=0.1;
@@ -53,7 +71,7 @@ func:function()
 	new G.Tech({
 		name:'Berry Picking',
 		desc:'@[gatherer]s can find berries.',
-		icon:[0,1,'imageSheet'],
+		icon:[1,1,'imageSheet'],
 		cost:{'insight':25},
 		req:{'plant lore':true},
 	});
@@ -61,7 +79,7 @@ func:function()
 		new G.Tech({
 		name:'Juice Making',
 		desc:'@[artisan]s can make juice.',
-		icon:[1,1,'imageSheet'],
+		icon:[0,1,'imageSheet'],
 		cost:{'insight':20},
 		req:{'plant lore':true},
 	});
@@ -72,7 +90,7 @@ func:function()
 		name:'Juice Love',
 		desc:'@your people appreciate [fruit Juice] and [Berry Juice] twice as much and will be twice as happy from consuming it.',
 		icon:[1,1,'imageSheet'],
-		chance:50,
+		chance:10,
 		req:{'Juice Making':true, 'Berry Picking':true},
 		effects:[
 			{type:'function',func:function(){G.getDict('Fruit Juice').turnToByContext['eat']['happiness']=0.2;}}, 	
@@ -80,6 +98,28 @@ func:function()
     ]
     });
     
+	//newTHINGY
+	
+		new G.Res({
+		name:'grain',
+		desc:'WIP',
+		meta:true,
+		visible:true,
+		icon:[0,0], //TODO: icon (same as wheat)
+		tick:function(me,tick)
+		{
+			if (me.amount>0 && G.checkPolicy('disable spoiling')=='off')
+			{
+				var stored=Math.min(me.amount,G.getRes('food storage').amount)/me.amount;
+				var notStored=1-stored;
+				
+				var toSpoil=me.amount*0.01*notStored+me.amount*0.0005*stored;
+				var spent=G.lose('grain',randomFloor(toSpoil),'decay');
+				//G.gain('spoiled food',randomFloor(spent));
+			}
+		},
+	});
+	
 	//Finally, we add a trait that amplifies the benefits of consuming hot sauce; it will take on average 20 years to appear once the conditions (knowing the "Hot sauce preparing" tech) is fulfilled.
 	//new G.Trait({
 	//	name:'hot sauce madness',
