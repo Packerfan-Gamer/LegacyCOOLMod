@@ -122,6 +122,27 @@ func:function()
 		},
 	});
 	
+	//new wonder.
+	
+		new G.Unit({
+		name:'Great Temple',
+		desc:'@leads to the <b>Religious victory Victory</b><>A monument honoring your gods and goddesses.//A temple housing great statues, the Great Temple stands tall, its eternal shadow forever reminding your people of your greatness.',
+		wonder:'temple',
+		icon:[1,14],
+		wideIcon:[0,14],
+		cost:{'basic building materials':1000},
+		costPerStep:{'basic building materials':100,'precious building materials':30},
+		steps:100,
+		messageOnStart:'You begin the construction of the Great Temple. People pray to the gods and goddesses in its shadow.',
+		finalStepCost:{'population':100},
+		finalStepDesc:'To complete the Great Temple, and to show your greatness to your gods, 100 of your [population,People] must be sacrificed.',
+		use:{'land':10},
+		//require:{'worker':10,'stone tools':10},
+		req:{'monument-building':true, 'Cathedrals':true },
+		category:'wonder',
+	});
+	
+	
 	//Finally, we add a trait that amplifies the benefits of consuming hot sauce; it will take on average 20 years to appear once the conditions (knowing the "Hot sauce preparing" tech) is fulfilled.
 	//new G.Trait({
 	//	name:'hot sauce madness',
