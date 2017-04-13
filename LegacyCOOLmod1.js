@@ -224,7 +224,22 @@ func:function()
 		category:'wonder',
 	});
 	
-	
+	new G.Policy({
+		name:'eat herbs',
+		desc:'Your people will eat or not eat [herb]s.<br>Your people <i>could start to starve</i>.',
+		icon:[6,12,4,6],
+		cost:{'influence':1},
+		startMode:'on',
+		req:{'rules of food':true},
+		effects:[
+			{type:'make part of',what:['herb'],parent:'food'},
+		],
+		effectsOff:[
+			{type:'make part of',what:['herb'],parent:''},
+		],
+		category:'food',
+	});
+
 	//Finally, we add a trait that amplifies the benefits of consuming hot sauce; it will take on average 20 years to appear once the conditions (knowing the "Hot sauce preparing" tech) is fulfilled.
 	//new G.Trait({
 	//	name:'hot sauce madness',
