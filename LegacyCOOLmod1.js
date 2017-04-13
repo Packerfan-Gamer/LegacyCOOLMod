@@ -114,7 +114,7 @@ func:function()
 
 	
 		new G.Unit({
-		name:'grave',
+		name:'Mass Grave',
 		desc:'@provides 10 [burial spot]s, in which the [corpse,dead] are automatically interred one by one@graves with buried corpses decay over time, freeing up land for more graves<>A simple grave dug into the earth, where the dead may find rest.//Burying your dead helps prevent [health,disease] and makes your people slightly [happiness,happier].',
 		icon:[13,2],
 		cost:{},
