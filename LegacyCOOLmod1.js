@@ -1,6 +1,6 @@
 //TODO: Add Tech to unlock a policy to get people to eat herbs or not. Add grain (wheat, barley, rye, etc.) to make bread. Add tech to unlock policy to get people to eat raw grains or not. 
 //TODO: Add Mass graves and crematoriums. Add Religous buildings to increase faith and culture. Add priests along with the buildings. 
-/*
+
 G.AddData({
 name:'Legacy COOL! Mod',
 author:'Packerfan-Gamer',
@@ -10,7 +10,7 @@ manifest:'ModManifest.js',
 requires:['Default dataset*'],
 sheets:{'imageSheet':'http://i.imgur.com/pYwTikq.png'},//custom stylesheet (note : broken in IE and Edge for the time being)
 func:function()
-{
+/*{
 	//mod to add berries and juice
 	
 	//First we add the new resources 
