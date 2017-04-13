@@ -4,7 +4,7 @@
 G.AddData({
 name:'Legacy COOL! Mod',
 author:'Packerfan-Gamer',
-desc:'A mod that adds cool things to the game. Currently have berries and juice.',
+desc:'A mod that adds cool things to the game. Currently have berries and juice. (working on wheat and mass graves!!)',
 engineVersion:1,
 manifest:'ModManifest.js',
 requires:['Default dataset*'],
@@ -86,6 +86,16 @@ func:function()
 		req:{'plant lore':true},
 	});
 	
+	//new tech to allow mass graves
+		new G.Tech({
+		name:'mass burial',
+		desc:'Unlocks Mass Graves, which can store 10 people in one grave.',
+		icon:[0,0,'imageSheet'],
+		cost:{'insight':20},
+		req:{'burial':true},
+	});
+	
+	
   //New Trait to make people love juice!
   
   new G.Trait({
@@ -100,6 +110,38 @@ func:function()
     ]
     });
     
+	//MASS-GRAVES
+
+	
+		new G.Unit({
+		name:'grave',
+		desc:'@provides 10 [burial spot]s, in which the [corpse,dead] are automatically interred one by one@graves with buried corpses decay over time, freeing up land for more graves<>A simple grave dug into the earth, where the dead may find rest.//Burying your dead helps prevent [health,disease] and makes your people slightly [happiness,happier].',
+		icon:[13,2],
+		cost:{},
+		use:{'land':1},
+		//require:{'worker':1,'knapped tools':1},
+		effects:[
+			{type:'provide',what:{'burial spot':10}},
+			//{type:'waste',chance:1/100,desired:true},
+			{type:'function',func:function(me){
+				var buried=G.getRes('burial spot').used;
+				if (buried>0 && G.getRes('burial spot').amount>=buried)
+				{
+					var toDie=Math.min(me.amount,randomFloor(buried*0.001));
+					me.targetAmount-=toDie;
+					G.wasteUnit(me,toDie);
+					G.getRes('burial spot').amount-=toDie;
+					G.getRes('burial spot').used-=toDie;
+				}
+			}}
+		],
+		req:{'mass burial':true},
+		category:'civil',
+	});
+	
+	
+	
+	
 	//newTHINGY
 	
 		new G.Res({
