@@ -68,7 +68,7 @@ func:function()
 		//adding a new effect to artisans that handles the actual honeycomb creation and is only active when 'make honeycomb' is active.
 	//G.getDict('artisan').effects.push({type:'convert',from:{'hot pepper':3,'bees':3},into:{'hot sauce':1},every:3,mode:'hot sauce'});
 	G.getDict('artisan').effects.push({type:'convert',from:{'fruit':3},into:{'Fruit Juice':2},every:5,mode:'MakeJuiceFruit'});
-	G.getDict('artisan').effects.push({type:'convert',from:{'berries':3},into:{'Berry Juice':4},every:5,mode:'MakeJuiceBerry'});
+	G.getDict('artisan').effects.push({type:'convert',from:{'Berries':3},into:{'Berry Juice':4},every:5,mode:'MakeJuiceBerry'});
 	//Berry Picking Makes Gatherers pick berries
 	G.getDict('gatherer').effects.push({type:'gather',context:'gather',what:{'Berries': 1},amount:1,max:1,req:{'Berry Picking':true}});           
 	//Then we add a new technology which is required by the gatherers to gain access to the "berry" mode :
