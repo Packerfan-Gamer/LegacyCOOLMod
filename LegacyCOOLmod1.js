@@ -116,24 +116,24 @@ func:function()
 	});
 	
 	//new tech to allow the grinding of wheat and bread-baking
-		new G.Tech({
-		name:'Grinding',
-		desc:'Unlocks the secrets of grinding grain into flour.',
-		icon:[0,0,'imageSheet'],
-		cost:{'insight':20},
-		req:{'sedentism':true},
-	});
-		new G.Tech({
-		name:'Bread Baking',
-		desc:'Unlocks the secrets of baking bread.',
-		icon:[0,0,'imageSheet'],
-		cost:{'insight':20},
-		req:{'Grinding':true, 'fire-making':true},
-	});
+	//	new G.Tech({
+	//	name:'Grinding',
+	//	desc:'Unlocks the secrets of grinding grain into flour.',
+	//	icon:[0,0,'imageSheet'],
+	//	cost:{'insight':20},
+	//	req:{'sedentism':true},
+	//});
+	//	new G.Tech({
+	//	name:'Bread Baking',
+	//	desc:'Unlocks the secrets of baking bread.',
+	//	icon:[0,0,'imageSheet'],
+	//	cost:{'insight':20},
+	//	req:{'Grinding':true, 'fire-making':true},
+	//});
 	
 	//new Modes for firekeepers to make bread from wheat
-	G.getDict('firekeeper').modes['WheatBread']={name:'Make Wheat Bread',desc:'Use Wheat Flour to make Wheat Bread.',req:{'Bread Baking':true},use:{'stone tools':1}};
-	G.getDict('firekeeper').effects.push({type:'convert',from:{'Wheat Flour':1},into:{'Wheat Bread':1},every:5,mode:'WheatBread'});
+	//G.getDict('firekeeper').modes['WheatBread']={name:'Make Wheat Bread',desc:'Use Wheat Flour to make Wheat Bread.',req:{'Bread Baking':true},use:{'stone tools':1}};
+	//G.getDict('firekeeper').effects.push({type:'convert',from:{'Wheat Flour':1},into:{'Wheat Bread':1},every:5,mode:'WheatBread'});
 	
 	
   //New Trait to make people love juice!
