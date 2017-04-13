@@ -4,11 +4,11 @@
 G.AddData({
 name:'Legacy COOL! Mod',
 author:'Packerfan-Gamer',
-desc:'A mod that adds cool things to the game. Currently have berries and juice. (working on wheat and mass graves!!)',
+desc:'A mod that adds cool things to the game. Currently have berries, juice, and Mass Graves (oh yes!!). (working on wheat)',
 engineVersion:1,
 manifest:'ModManifest.js',
 requires:['Default dataset*'],
-sheets:{'imageSheet':'http://i.imgur.com/Dcp93oV.png'},//custom stylesheet (note : broken in IE and Edge for the time being)
+sheets:{'imageSheet':'http://i.imgur.com/pYwTikq.png'},//custom stylesheet (note : broken in IE and Edge for the time being)
 func:function()
 {
 	//mod to add berries and juice
@@ -18,7 +18,7 @@ func:function()
 		name:'Fruit Juice',
 		desc:'[Fruit Juice] tastes better than [water].',
 		icon:[0,1,'imageSheet'],
-		turnToByContext:{'eat':{'health':0.05,'happiness':0.1},'decay':{'spoiled food':0.2}},//this basically translates to : "when eaten, generate some health and happiness; when rotting, turn into either nothing or some spoiled food"
+		turnToByContext:{'eat':{'health':0.06,'happiness':0.1},'decay':{'spoiled food':0.2}},//this basically translates to : "when eaten, generate some health and happiness; when rotting, turn into either nothing or some spoiled food"
 		partOf:'food',
 		category:'food',
 	});
@@ -26,7 +26,7 @@ func:function()
 		name:'Berry Juice',
 		desc:'[Berry Juice] tastes better than [water].',
 		icon:[0,1,'imageSheet'],
-		turnToByContext:{'eat':{'health':0.05,'happiness':0.1},'decay':{'spoiled food':0.2}},//this basically translates to : "when eaten, generate some health and happiness; when rotting, turn into either nothing or some spoiled food"
+		turnToByContext:{'eat':{'health':0.07,'happiness':0.1},'decay':{'spoiled food':0.2}},//this basically translates to : "when eaten, generate some health and happiness; when rotting, turn into either nothing or some spoiled food"
 		partOf:'food',
 		category:'food',
 	});
@@ -34,7 +34,7 @@ func:function()
 		name:'Berries',
 		desc:'[Berries] taste sweet, but spoil quickly.',
 		icon:[1,1,'imageSheet'],
-		turnToByContext:{'eat':{'health':0.05,'happiness':0.1},'decay':{'spoiled food':0.7}},//this basically translates to : "when eaten, generate some health and happiness; when rotting, turn into either nothing or some spoiled food"
+		turnToByContext:{'eat':{'health':0.05,'happiness':0.1},'decay':{'spoiled food':0.8}},//this basically translates to : "when eaten, generate some health and happiness; when rotting, turn into either nothing or some spoiled food"
 		partOf:'food',
 		category:'food',
 	});
@@ -64,9 +64,11 @@ func:function()
 	G.getDict('grass').res['gather']['Wheat']=0.1;
 		//adding a new mode to artisans so they can make juice from fruit
 	G.getDict('artisan').modes['MakeJuiceFruit']={name:'Make Juice from Fruit',desc:'Use fruit to make juice.',req:{'Juice Making':true},use:{'stone tools':1}};
+	G.getDict('artisan').modes['MakeJuiceBerry']={name:'Make Juice from Berries',desc:'Use Berries to make juice.',req:{'Juice Making':true, 'Berry Picking':true},use:{'stone tools':1}};
 		//adding a new effect to artisans that handles the actual honeycomb creation and is only active when 'make honeycomb' is active.
 	//G.getDict('artisan').effects.push({type:'convert',from:{'hot pepper':3,'bees':3},into:{'hot sauce':1},every:3,mode:'hot sauce'});
 	G.getDict('artisan').effects.push({type:'convert',from:{'fruit':3},into:{'Fruit Juice':2},every:5,mode:'MakeJuiceFruit'});
+	G.getDict('artisan').effects.push({type:'convert',from:{'berries':3},into:{'Berry Juice':4},every:5,mode:'MakeJuiceBerry'});
 	//Berry Picking Makes Gatherers pick berries
 	G.getDict('gatherer').effects.push({type:'gather',context:'gather',what:{'Berries': 1},amount:1,max:1,req:{'Berry Picking':true}});           
 	//Then we add a new technology which is required by the gatherers to gain access to the "berry" mode :
@@ -74,7 +76,7 @@ func:function()
 		name:'Berry Picking',
 		desc:'@[gatherer]s can find berries.',
 		icon:[2,1,'imageSheet'],
-		cost:{'insight':25},
+		cost:{'insight':15},
 		req:{'plant lore':true},
 	});
   //New tech to allow the making of juice
@@ -90,7 +92,7 @@ func:function()
 		new G.Tech({
 		name:'mass burial',
 		desc:'Unlocks Mass Graves, which can store 10 people in one grave.',
-		icon:[0,0,'imageSheet'],
+		icon:[2,2,'imageSheet'],
 		cost:{'insight':20},
 		req:{'burial':true},
 	});
@@ -116,7 +118,7 @@ func:function()
 		new G.Unit({
 		name:'Mass Grave',
 		desc:'@provides 10 [burial spot]s, in which the [corpse,dead] are automatically interred one by one@graves with buried corpses decay over time, freeing up land for more graves<>A simple grave dug into the earth, where the dead may find rest.//Burying your dead helps prevent [health,disease] and makes your people slightly [happiness,happier].',
-		icon:[13,2],
+		icon:[1,2,'imageSheet'],
 		cost:{},
 		use:{'land':1},
 		//require:{'worker':1,'knapped tools':1},
