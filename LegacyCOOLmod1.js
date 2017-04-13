@@ -41,10 +41,28 @@ func:function()
 	
 		new G.Res({
 		name:'Wheat',
-		desc:'[Wheat] tastes unpleasant but can be used for many things. You can grind wheat into flour, or make beer',
+		desc:'[Wheat] tastes unpleasant but can be used for many things. You can grind wheat into flour, or make beer.',
 		icon:[0,0,'imageSheet'], //TODO: Image for wheat
 		turnToByContext:{'eat':{'health':-0.5,'happiness':-0.3},'decay':{'spoiled food':0.3}},
 		partOf:'grain',
+		category:'food',
+	});
+	
+		new G.Res({
+		name:'Wheat Flour',
+		desc:'You can bake [Wheat Flour] to make [Wheat Bread].',
+		icon:[0,0,'imageSheet'], //TODO: Image for wheat
+		turnToByContext:{'eat':{'health':-0.5,'happiness':-0.3},'decay':{'spoiled food':0.2}},
+		partOf:'grain',
+		category:'food',
+	});
+	
+		new G.Res({
+		name:'Wheat Bread',
+		desc:'[Wheat Bread] tastes really good.',
+		icon:[0,0,'imageSheet'], //TODO: Image for wheat
+		turnToByContext:{'eat':{'health':1,'happiness':1},'decay':{'spoiled food':0.4,}},
+		partOf:'food',
 		category:'food',
 	});
 	
@@ -90,12 +108,32 @@ func:function()
 	
 	//new tech to allow mass graves
 		new G.Tech({
-		name:'mass burial',
+		name:'Mass burial',
 		desc:'Unlocks Mass Graves, which can store 10 people in one grave.',
 		icon:[2,2,'imageSheet'],
 		cost:{'insight':20},
 		req:{'burial':true},
 	});
+	
+	//new tech to allow the grinding of wheat and bread-baking
+		new G.Tech({
+		name:'Grinding',
+		desc:'Unlocks the secrets of grinding grain into flour.',
+		icon:[0,0,'imageSheet'],
+		cost:{'insight':20},
+		req:{'sedentism':true},
+	});
+		new G.Tech({
+		name:'Bread Baking',
+		desc:'Unlocks the secrets of baking bread.',
+		icon:[0,0,'imageSheet'],
+		cost:{'insight':20},
+		req:{'Grinding':true, 'fire-making':true},
+	});
+	
+	//new Modes for firekeepers to make bread from wheat
+	G.getDict('firekeeper').modes['WheatBread']={name:'Make Wheat Bread',desc:'Use Wheat Flour to make Wheat Bread.',req:{'Bread Baking':true},use:{'stone tools':1}};
+	G.getDict('firekeeper').effects.push({type:'convert',from:{'Wheat Flour':1},into:{'Wheat Bread':1},every:5,mode:'WheatBread'});
 	
 	
   //New Trait to make people love juice!
