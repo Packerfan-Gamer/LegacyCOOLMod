@@ -143,7 +143,7 @@ func:function()
   
   new G.Trait({
 		name:'Juice Love',
-		desc:'@your people appreciate [fruit Juice] and [Berry Juice] twice as much and will be twice as happy from consuming it.',
+		desc:'@your people appreciate [Fruit Juice] and [Berry Juice] twice as much and will be twice as happy from consuming it.',
 		icon:[2,0,'imageSheet'],
 		chance:10,
 		req:{'Juice Making':true, 'Berry Picking':true},
@@ -170,7 +170,7 @@ func:function()
 				var buried=G.getRes('burial spot').used;
 				if (buried>0 && G.getRes('burial spot').amount>=buried)
 				{
-					var toDie=Math.min(me.amount,randomFloor(buried*0.001));
+					var toDie=Math.min(me.amount,randomFloor(buried*0.0001));
 					me.targetAmount-=toDie;
 					G.wasteUnit(me,toDie);
 					G.getRes('burial spot').amount-=toDie;
