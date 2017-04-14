@@ -18,7 +18,7 @@ func:function()
 		turnToByContext:{'eat':{'health':0.06,'happiness':0.1},'decay':{'spoiled food':0.2}},//this basically translates to : "when eaten, generate some health and happiness; when rotting, turn into either nothing or some spoiled food"
 		partOf:'food',
 		category:'food',
-		}
+		});
 
 	//mod to add berries and juice
 	
