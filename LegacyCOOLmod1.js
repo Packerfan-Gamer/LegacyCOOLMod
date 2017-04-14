@@ -1,10 +1,11 @@
-//TODO: Add Tech to unlock a policy to get people to eat herbs or not. Add grain (wheat, barley, rye, etc.) to make bread. Add tech to unlock policy to get people to eat raw grains or not. 
-//TODO: Add Mass graves and crematoriums. Add Religous buildings to increase faith and culture. Add priests along with the buildings. 
+//DONE: Add Tech to unlock a policy to get people to eat herbs or not. Add grain (wheat, barley, rye, etc.) to make bread. Add Mass graves and crematoriums. 
+//Add tech to unlock policy to get people to eat raw grains or not. 
+//TODO: Add Religous buildings to increase faith and culture. Add priests along with the buildings. 
 
 G.AddData({
 name:'Legacy COOL! Mod',
 author:'Packerfan-Gamer',
-desc:'A mod that adds cool things to the game. Currently have berries, juice, and Mass Graves (oh yes!!). (working on wheat)',
+desc:'A mod that adds cool things to the game. Currently have berries, juice, and Mass Graves (oh yes!!), and so much moar!',
 engineVersion:1,
 manifest:'ModManifest.js',
 requires:['Default dataset*'],
@@ -12,7 +13,6 @@ sheets:{'imageSheet':'http://i.imgur.com/pYwTikq.png'},//custom stylesheet (note
 func:function()
 	{	
 
-	//mod to add berries and juice
 	
 	//First we add the new resources 
 	new G.Res({
@@ -84,10 +84,11 @@ func:function()
 		//adding a new mode to artisans so they can make juice from fruit
 	G.getDict('artisan').modes['MakeJuiceFruit']={name:'Make Juice from Fruit',desc:'Use fruit to make juice.',req:{'Juice Making':true},use:{'stone tools':1}};
 	G.getDict('artisan').modes['MakeJuiceBerry']={name:'Make Juice from Berries',desc:'Use Berries to make juice.',req:{'Juice Making':true, 'Berry Picking':true},use:{'stone tools':1}};
-		//adding a new effect to artisans that handles the actual honeycomb creation and is only active when 'make honeycomb' is active.
+	G.getDict('artisan').modes['GrindWheat']={name:'Grind Wheat into Flour',desc:'Use Wheat to make Wheat Flour',req:{'Grinding':true},use:{'stone tools':1}};
 	//G.getDict('artisan').effects.push({type:'convert',from:{'hot pepper':3,'bees':3},into:{'hot sauce':1},every:3,mode:'hot sauce'});
 	G.getDict('artisan').effects.push({type:'convert',from:{'fruit':3},into:{'Fruit Juice':2},every:5,mode:'MakeJuiceFruit'});
 	G.getDict('artisan').effects.push({type:'convert',from:{'Berries':3},into:{'Berry Juice':4},every:5,mode:'MakeJuiceBerry'});
+	G.getDict('artisan').effects.push({type:'convert',from:{'Wheat':1},into:{'Wheat Flour':2},every:5,mode:'GrindWheat'});
 	//Berry Picking Makes Gatherers pick berries
 	G.getDict('gatherer').effects.push({type:'gather',context:'gather',what:{'Berries': 1},amount:1,max:1,req:{'Berry Picking':true}});           
 	//Then we add a new technology which is required by the gatherers to gain access to the "berry" mode :
@@ -117,24 +118,24 @@ func:function()
 	});
 	
 	//new tech to allow the grinding of wheat and bread-baking
-	//	new G.Tech({
-	//	name:'Grinding',
-	//	desc:'Unlocks the secrets of grinding grain into flour.',
-	//	icon:[0,0,'imageSheet'],
-	//	cost:{'insight':20},
-	//	req:{'sedentism':true},
-	//});
-	//	new G.Tech({
-	//	name:'Bread Baking',
-	//	desc:'Unlocks the secrets of baking bread.',
-	//	icon:[0,0,'imageSheet'],
-	//	cost:{'insight':20},
-	//	req:{'Grinding':true, 'fire-making':true},
-	//});
+		new G.Tech({
+		name:'Grinding',
+		desc:'Unlocks the secrets of grinding grain into flour.',
+		icon:[0,0,'imageSheet'],
+		cost:{'insight':20},
+		req:{'sedentism':true},
+	});
+		new G.Tech({
+		name:'Bread Baking',
+		desc:'Unlocks the secrets of baking bread.',
+		icon:[0,0,'imageSheet'],
+		cost:{'insight':20},
+		req:{'Grinding':true, 'fire-making':true},
+	});
 	
-	//new Modes for firekeepers to make bread from wheat
-	//G.getDict('firekeeper').modes['WheatBread']={name:'Make Wheat Bread',desc:'Use Wheat Flour to make Wheat Bread.',req:{'Bread Baking':true},use:{'stone tools':1}};
-	//G.getDict('firekeeper').effects.push({type:'convert',from:{'Wheat Flour':1},into:{'Wheat Bread':1},every:5,mode:'WheatBread'});
+	//new Modes for firekeepers to make bread from wheat flour
+	G.getDict('firekeeper').modes['WheatBread']={name:'Make Wheat Bread',desc:'Use Wheat Flour to make Wheat Bread.',req:{'Bread Baking':true},use:{'stone tools':1}};
+	G.getDict('firekeeper').effects.push({type:'convert',from:{'Wheat Flour':1},into:{'Wheat Bread':1},every:5,mode:'WheatBread'});
 	
 	
   //New Trait to make people love juice!
@@ -227,7 +228,7 @@ func:function()
 	
 	new G.Policy({
 		name:'eat herbs',
-		desc:'Your people will eat or not eat [herb]s.<br>Your people <i>could start to starve</i>.',
+		desc:'Your people will eat or not eat [herb]s. <br>Your people <i>could start to starve</i>.',
 		icon:[6,12,4,6],
 		cost:{'influence':1},
 		startMode:'on',
