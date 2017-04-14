@@ -19,7 +19,7 @@ func:function()
 		partOf:'food',
 		category:'food',
 		}
-/*
+
 	//mod to add berries and juice
 	
 	//First we add the new resources 
