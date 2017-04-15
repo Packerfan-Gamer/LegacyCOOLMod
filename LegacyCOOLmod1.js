@@ -214,7 +214,7 @@ func:function()
 		desc:'WIP',
 		meta:true,
 		visible:true,
-		icon:[1,3], //TODO: icon (same as wheat)
+		icon:[1,3,'imageSheet'], //TODO: icon (same as wheat)
 		tick:function(me,tick)
 		{
 			if (me.amount>0 && G.checkPolicy('disable spoiling')=='off')
