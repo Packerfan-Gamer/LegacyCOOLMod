@@ -244,7 +244,7 @@ func:function()
 			{type:'waste',chance:0.01/1000}
 		],
 		req:{'construction':true, 'religion':true},
-		category:'Spiritual',
+		category:'spiritual',
 	});
 	
 	
