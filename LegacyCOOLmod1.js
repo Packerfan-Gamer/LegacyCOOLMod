@@ -39,6 +39,14 @@ func:function()
 		partOf:'food',
 		category:'food',
 	});
+		
+		new G.Res({
+		name:'Thorns',
+		desc:'[Thorns] hurt alot!',
+		icon:[0,0,'imageSheet'],
+		partOf:'misc',
+		category:'misc',
+	});
 	
 		new G.Res({
 		name:'Wheat',
@@ -113,7 +121,8 @@ func:function()
 	G.getDict('artisan').effects.push({type:'convert',from:{'Wheat':1},into:{'Wheat Flour':2},every:5,mode:'GrindGrain'});
 	G.getDict('artisan').effects.push({type:'convert',from:{'Barley':1},into:{'Barley Flour':2},every:5,mode:'GrindGrain'});
 	//Berry Picking Makes Gatherers pick berries
-	G.getDict('gatherer').effects.push({type:'gather',context:'gather',what:{'Berries': 1},amount:1,max:1,req:{'Berry Picking':true}});           
+	G.getDict('gatherer').effects.push({type:'gather',context:'gather',what:{'Berries': 1},amount:1,max:1,req:{'Berry Picking':true}});
+	G.getDict('gatherer').effects.push({type:'gather',context:'gather',what:{'Thorns': 3},amount:1,max:1,req:{'Berry Picking':true}});   
 	//Then we add a new technology which is required by the gatherers to gain access to the "berry" mode :
 	new G.Tech({
 		name:'Berry Picking',
