@@ -44,7 +44,7 @@ func:function()
 		name:'Wheat',
 		desc:'[Wheat] tastes unpleasant but can be used for many things. You can grind wheat into flour, or make beer.',
 		icon:[1,3,'imageSheet'], //TODO: Image for wheat
-		turnToByContext:{'eat':{'health':-0.5,'happiness':-0.3},'decay':{'spoiled food':0.3}},
+		turnToByContext:{'eat':{'health':-0.5,'happiness':-0.3},'decay':{'spoiled food':0.3,'Wheat':0.7}},
 		partOf:'grain',
 		category:'food',
 	});
@@ -62,7 +62,7 @@ func:function()
 		name:'Wheat Bread',
 		desc:'[Wheat Bread] tastes really good.',
 		icon:[0,3,'imageSheet'], //TODO: Image for wheat
-		turnToByContext:{'eat':{'health':1,'happiness':1},'decay':{'spoiled food':0.4,}},
+		turnToByContext:{'eat':{'health':3,'happiness':20},'decay':{'spoiled food':0.3,}},
 		partOf:'food',
 		category:'food',
 	});
@@ -75,21 +75,43 @@ func:function()
 		partOf:'grain',
 		category:'food',
 	});
+		
+		new G.Res({
+		name:'Barley Flour',
+		desc:'You can bake [Barley Flour] to make [Barley Bread].',
+		icon:[2,3,'imageSheet'], //TODO: Image for wheat
+		turnToByContext:{'eat':{'health':-0.5,'happiness':-0.3},'decay':{'spoiled food':0.2}},
+		partOf:'grain',
+		category:'food',
+	});
+	
+		new G.Res({
+		name:'Barley Bread',
+		desc:'[Barley Bread] has many health benefits.',
+		icon:[0,3,'imageSheet'], //TODO: Image for wheat
+		turnToByContext:{'eat':{'health':30,'happiness':10},'decay':{'spoiled food':0.3,}},
+		partOf:'food',
+		category:'food',
+	});
+	
+		
 	
 	//Then we augment the base data to incorporate our new resources :
 		//adding berries as something that can be gathered from grass
 	//G.getDict('grass').res['gather']['Berries']=0.1;
 	//adding wheat as something that can come from grass
-	G.getDict('grass').res['gather']['Wheat']=0.09;
-	G.getDict('grass').res['gather']['Barley']=0.03;
+	G.getDict('grass').res['gather']['Wheat']=0.07;
+	G.getDict('grass').res['gather']['Barley']=0.01;
 		//adding a new mode to artisans so they can make juice from fruit
 	G.getDict('artisan').modes['MakeJuiceFruit']={name:'Make Juice from Fruit',desc:'Use fruit to make juice.',req:{'Juice Making':true},use:{'stone tools':1}};
 	G.getDict('artisan').modes['MakeJuiceBerry']={name:'Make Juice from Berries',desc:'Use Berries to make juice.',req:{'Juice Making':true, 'Berry Picking':true},use:{'stone tools':1}};
-	G.getDict('artisan').modes['GrindWheat']={name:'Grind Wheat into Flour',desc:'Use Wheat to make Wheat Flour',req:{'Grinding':true},use:{'stone tools':1}};
+	G.getDict('artisan').modes['GrindGrain']={name:'Grind Grain into Flour',desc:'Use Wheat to make Wheat Flour',req:{'Grinding':true},use:{'stone tools':1}};
 	//G.getDict('artisan').effects.push({type:'convert',from:{'hot pepper':3,'bees':3},into:{'hot sauce':1},every:3,mode:'hot sauce'});
 	G.getDict('artisan').effects.push({type:'convert',from:{'fruit':3},into:{'Fruit Juice':2},every:5,mode:'MakeJuiceFruit'});
 	G.getDict('artisan').effects.push({type:'convert',from:{'Berries':3},into:{'Berry Juice':4},every:5,mode:'MakeJuiceBerry'});
-	G.getDict('artisan').effects.push({type:'convert',from:{'Wheat':1},into:{'Wheat Flour':2},every:5,mode:'GrindWheat'});
+		
+	G.getDict('artisan').effects.push({type:'convert',from:{'Wheat':1},into:{'Wheat Flour':2},every:5,mode:'GrindGrain'});
+	G.getDict('artisan').effects.push({type:'convert',from:{'Barley':1},into:{'Barley Flour':2},every:5,mode:'GrindGrain'});
 	//Berry Picking Makes Gatherers pick berries
 	G.getDict('gatherer').effects.push({type:'gather',context:'gather',what:{'Berries': 1},amount:1,max:1,req:{'Berry Picking':true}});           
 	//Then we add a new technology which is required by the gatherers to gain access to the "berry" mode :
@@ -137,7 +159,7 @@ func:function()
 	//new Modes for firekeepers to make bread from flour
 	G.getDict('firekeeper').modes['WheatBread']={name:'Make Wheat Bread',desc:'Use Wheat Flour to make Wheat Bread.',req:{'Bread Baking':true},use:{'stone tools':1}};
 	G.getDict('firekeeper').effects.push({type:'convert',from:{'Wheat Flour':1},into:{'Wheat Bread':1},every:5,mode:'WheatBread'});
-	
+	G.getDict('firekeeper').effects.push({type:'convert',from:{'Barley Flour':1},into:{'Barley Bread':1},every:5,mode:'WheatBread'});
 	
   //New Trait to make people love juice!
   
