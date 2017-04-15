@@ -44,7 +44,7 @@ func:function()
 		name:'Thorns',
 		desc:'[Thorns] hurt alot!',
 		icon:[0,0,'imageSheet'],
-		partOf:'misc',
+		partOf:'misc materials',
 		category:'misc',
 	});
 	
