@@ -278,5 +278,27 @@ func:function()
 	//});
 	
 	//There are many other ways of adding and changing content; refer to /data.js, the default dataset, if you want to see how everything is done in the base game. Good luck!
+		
+		
+	/*=====================================================================================
+	ACHIEVEMENTS
+	=======================================================================================
+	
+	G.legacyBonuses.push(
+		{id:'addFastTicksOnResearch',name:'+[X] fast ticks from research',desc:'Additional fast ticks when completing research.',icon:[0,0],func:function(obj){G.props['fastTicksOnResearch']+=obj.amount;}}
+	);
+	
+	//do NOT remove or reorder achievements or saves WILL get corrupted
+	
+	new G.Achiev({
+		tier:0,
+		name:'religion',
+		desc:'Your people have created a religion. May their prayers be answered.',
+		fromUnit:'Church',
+		effects:[
+			{type:'addFastTicksOnResearch',amount:150}
+		],
+	});
+	*/
 }
 });
