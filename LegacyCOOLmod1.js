@@ -213,8 +213,19 @@ func:function()
 		category:'civil',
 	});
 	
-	
-	
+	G.getDict('architect')
+		effects:[
+		{type:'function',func:function(me){
+		var wiggleRoom=5;
+		var toMake=Math.min(me.amount-me.idle,Math.max(0,(G.getRes('corpse').amount+wiggleRoom)-(G.getRes('burial spot').amount-G.getRes('burial spot').used)));
+		if (toMake>0 && G.canBuyUnitByName('house',toMake))
+		{
+			G.buyUnitByName('Mass Grave',toMake,true);
+		}
+	},mode:'mass undertaker'}
+],	
+		
+		
 	
 	//newTHINGY
 	
