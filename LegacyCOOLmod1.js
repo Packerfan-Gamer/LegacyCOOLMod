@@ -229,6 +229,35 @@ func:function()
 		},
 	});
 	
+		
+		//CHURCHES!!
+		
+		new G.Unit({
+		name:'house of worship',
+		desc:'A simple place for your people to worship.',
+		icon:[21,3],
+		cost:{'archaic building materials':100, 'basic building materials':10},
+		use:{'land':1},
+		//require:{'worker':3,'metal tools':3},
+		effects:[
+			{type:'provide',what:{'spirituality':10}},
+			{type:'waste',chance:0.01/1000}
+		],
+		req:{'construction':true, 'religion':true},
+		category:'Spiritual',
+	});
+	
+	
+		
+		new G.Tech({
+		name:'religion',
+		desc:'Create a religion to worship gods or goddesses. Unlocks [house of worship]',
+		icon:[0,0,'imageSheet'],
+		cost:{'insight':20},
+		req:{'symbolism':true, 'sedentism':true},
+	});
+	
+		
 	//new wonder.
 	/*
 		new G.Unit({
