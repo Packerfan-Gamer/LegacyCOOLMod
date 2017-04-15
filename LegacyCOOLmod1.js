@@ -45,7 +45,7 @@ func:function()
 		desc:'[Thorns] hurt alot!',
 		icon:[0,0,'imageSheet'],
 		partOf:'misc materials',
-		category:'misc',
+		category:'build',
 	});
 	
 		new G.Res({
