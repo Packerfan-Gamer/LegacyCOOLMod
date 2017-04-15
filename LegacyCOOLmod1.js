@@ -1,5 +1,5 @@
 //DONE: Add Tech to unlock a policy to get people to eat herbs or not. Add grain (wheat, barley, rye, etc.) to make bread. Add Mass graves and crematoriums. 
-//Add tech to unlock policy to get people to eat raw grains or not. 
+//TODO: Add tech to unlock policy to get people to eat raw grains or not. 
 //TODO: Add Religous buildings to increase faith and culture. Add priests along with the buildings. 
 
 G.AddData({
@@ -9,7 +9,7 @@ desc:'A mod that adds cool things to the game. Currently have berries, juice, an
 engineVersion:1,
 manifest:'ModManifest.js',
 requires:['Default dataset*'],
-sheets:{'imageSheet':'http://i.imgur.com/pYwTikq.png'},//custom stylesheet (note : broken in IE and Edge for the time being)
+sheets:{'imageSheet':'http://i.imgur.com/owlnODu.png'},//custom stylesheet (note : broken in IE and Edge for the time being)
 func:function()
 	{	
 
@@ -43,7 +43,7 @@ func:function()
 		new G.Res({
 		name:'Wheat',
 		desc:'[Wheat] tastes unpleasant but can be used for many things. You can grind wheat into flour, or make beer.',
-		icon:[0,0,'imageSheet'], //TODO: Image for wheat
+		icon:[1,3,'imageSheet'], //TODO: Image for wheat
 		turnToByContext:{'eat':{'health':-0.5,'happiness':-0.3},'decay':{'spoiled food':0.3}},
 		partOf:'grain',
 		category:'food',
@@ -52,7 +52,7 @@ func:function()
 		new G.Res({
 		name:'Wheat Flour',
 		desc:'You can bake [Wheat Flour] to make [Wheat Bread].',
-		icon:[0,0,'imageSheet'], //TODO: Image for wheat
+		icon:[2,3,'imageSheet'], //TODO: Image for wheat
 		turnToByContext:{'eat':{'health':-0.5,'happiness':-0.3},'decay':{'spoiled food':0.2}},
 		partOf:'grain',
 		category:'food',
@@ -61,7 +61,7 @@ func:function()
 		new G.Res({
 		name:'Wheat Bread',
 		desc:'[Wheat Bread] tastes really good.',
-		icon:[0,0,'imageSheet'], //TODO: Image for wheat
+		icon:[0,3,'imageSheet'], //TODO: Image for wheat
 		turnToByContext:{'eat':{'health':1,'happiness':1},'decay':{'spoiled food':0.4,}},
 		partOf:'food',
 		category:'food',
@@ -122,19 +122,19 @@ func:function()
 		new G.Tech({
 		name:'Grinding',
 		desc:'Unlocks the secrets of grinding grain into flour.',
-		icon:[0,0,'imageSheet'],
+		icon:[3,1,'imageSheet'],
 		cost:{'insight':20},
 		req:{'sedentism':true},
 	});
 		new G.Tech({
 		name:'Bread Baking',
 		desc:'Unlocks the secrets of baking bread.',
-		icon:[0,0,'imageSheet'],
+		icon:[3,0,'imageSheet'],
 		cost:{'insight':20},
 		req:{'Grinding':true, 'fire-making':true},
 	});
 	
-	//new Modes for firekeepers to make bread from wheat flour
+	//new Modes for firekeepers to make bread from flour
 	G.getDict('firekeeper').modes['WheatBread']={name:'Make Wheat Bread',desc:'Use Wheat Flour to make Wheat Bread.',req:{'Bread Baking':true},use:{'stone tools':1}};
 	G.getDict('firekeeper').effects.push({type:'convert',from:{'Wheat Flour':1},into:{'Wheat Bread':1},every:5,mode:'WheatBread'});
 	
@@ -192,7 +192,7 @@ func:function()
 		desc:'WIP',
 		meta:true,
 		visible:true,
-		icon:[0,0], //TODO: icon (same as wheat)
+		icon:[1,3], //TODO: icon (same as wheat)
 		tick:function(me,tick)
 		{
 			if (me.amount>0 && G.checkPolicy('disable spoiling')=='off')
@@ -208,7 +208,7 @@ func:function()
 	});
 	
 	//new wonder.
-	
+	/*
 		new G.Unit({
 		name:'Great Temple',
 		desc:'@leads to the <b>Religious victory Victory</b><>A monument honoring your gods and goddesses.//A temple housing great statues, the Great Temple stands tall, its eternal shadow forever reminding your people of your greatness.',
@@ -226,7 +226,7 @@ func:function()
 		req:{'monument-building':true, 'Cathedrals':true },
 		category:'wonder',
 	});
-	
+	*/
 	new G.Policy({
 		name:'eat herbs',
 		desc:'Your people will eat or not eat [herb]s. <br>Your people <i>could start to starve</i>.',
