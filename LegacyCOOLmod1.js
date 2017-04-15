@@ -44,7 +44,7 @@ func:function()
 		name:'Wheat',
 		desc:'[Wheat] tastes unpleasant but can be used for many things. You can grind wheat into flour, or make beer.',
 		icon:[1,3,'imageSheet'], //TODO: Image for wheat
-		turnToByContext:{'eat':{'health':-0.5,'happiness':-0.3},'decay':{'spoiled food':0.3,'Wheat':0.7}},
+		turnToByContext:{'eat':{'health':-0.5,'happiness':-100},'decay':{'spoiled food':0.3,'Wheat':0.7}},
 		partOf:'grain',
 		category:'food',
 	});
@@ -53,7 +53,7 @@ func:function()
 		name:'Wheat Flour',
 		desc:'You can bake [Wheat Flour] to make [Wheat Bread].',
 		icon:[2,3,'imageSheet'], //TODO: Image for wheat
-		turnToByContext:{'eat':{'health':-0.5,'happiness':-0.3},'decay':{'spoiled food':0.2}},
+		turnToByContext:{'eat':{'health':-0.5,'happiness':-100},'decay':{'spoiled food':0.2}},
 		partOf:'grain',
 		category:'food',
 	});
@@ -71,7 +71,7 @@ func:function()
 		name:'Barley',
 		desc:'[Barley] tastes unpleasant but can be used for many things. You can grind it into flour, which is used in bread-making',
 		icon:[0,0,'imageSheet'], //TODO: Image for wheat
-		turnToByContext:{'eat':{'health':-0.5,'happiness':-0.3},'decay':{'spoiled food':0.3}},
+		turnToByContext:{'eat':{'health':-0.5,'happiness':-100},'decay':{'spoiled food':0.3}},
 		partOf:'grain',
 		category:'food',
 	});
@@ -80,7 +80,7 @@ func:function()
 		name:'Barley Flour',
 		desc:'You can bake [Barley Flour] to make [Barley Bread].',
 		icon:[2,3,'imageSheet'], //TODO: Image for wheat
-		turnToByContext:{'eat':{'health':-0.5,'happiness':-0.3},'decay':{'spoiled food':0.2}},
+		turnToByContext:{'eat':{'health':-0.5,'happiness':-100},'decay':{'spoiled food':0.2}},
 		partOf:'grain',
 		category:'food',
 	});
