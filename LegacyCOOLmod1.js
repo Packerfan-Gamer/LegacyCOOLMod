@@ -240,7 +240,23 @@ func:function()
 		use:{'land':1},
 		//require:{'worker':3,'metal tools':3},
 		effects:[
-			{type:'provide',what:{'spirituality':10}},
+			{type:'provide',what:{'faith':1}},
+			{type:'waste',chance:0.01/1000}
+		],
+		req:{'building':true, 'religion':true},
+		category:'spiritual',
+	});
+
+		new G.Unit({
+		name:'church',
+		desc:'A more advanced place for your people to worship.',
+		icon:[21,3],
+		cost:{'basic building materials':100, 'precious building materials':75},
+		use:{'land':1},
+		//require:{'worker':3,'metal tools':3},
+		effects:[
+			{type:'provide',what:{'faith':10}},
+			{type:'provide',what:{'spirituality':5}},
 			{type:'waste',chance:0.01/1000}
 		],
 		req:{'construction':true, 'religion':true},
@@ -254,7 +270,18 @@ func:function()
 		desc:'Create a religion to worship gods or goddesses. Unlocks [house of worship]',
 		icon:[0,0,'imageSheet'],
 		cost:{'insight':20},
+		effects:[
+			{type:'provide',what:{'spirituality':10}},
+		],
 		req:{'symbolism':true, 'sedentism':true},
+	});
+	
+		new G.Tech({
+		name:'churches',
+		desc:'Unlocks [church]',
+		icon:[0,0,'imageSheet'],
+		cost:{'insight':30},
+		req:{'religion':true},
 	});
 	
 		
