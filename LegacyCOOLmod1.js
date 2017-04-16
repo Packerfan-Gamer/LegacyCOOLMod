@@ -222,9 +222,9 @@ func:function()
 		category:'civil',
 	});
 	
-		G.getDict('architect').modes['MassUndertaker']={name:'Mass Undertaker',desc:'Mass Graves!',req:{'Mass Burial':true},use:{'stone tools':1}};
+		G.getDict('architect').modes['MassUndertaker']={name:'Mass Undertaker',desc:'Mass Graves!',req:{'Mass Burial':true}};
 		
-	G.getDict('architect')
+		G.getDict('architect')
 		effects:[
 		{type:'function',func:function(me){
 		var wiggleRoom=5;
@@ -234,7 +234,7 @@ func:function()
 			G.buyUnitByName('Mass Grave',toMake,true);
 		}
 	},mode:'MassUndertaker'}
-],	
+],
 		
 		
 	
