@@ -40,12 +40,21 @@ func:function()
 		category:'food',
 	});
 		
+		//Thorns which come from bushes. can be used to make traps
 		new G.Res({
 		name:'Thorns',
 		desc:'[Thorns] hurt alot!',
 		icon:[0,0,'imageSheet'],
 		partOf:'misc materials',
-		category:'build',
+		category:'misc',
+	});
+
+		new G.Res({
+		name:'Archaic Trap',
+		desc:'[Archaic Trap, Traps] can be used by the hunters to trap animals. (not yet)',
+		icon:[0,0,'imageSheet'],
+		partOf:'misc materials',
+		category:'misc',
 	});
 	
 		new G.Res({
