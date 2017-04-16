@@ -213,6 +213,8 @@ func:function()
 		category:'civil',
 	});
 	
+		G.getDict('architect').modes['MassUndertaker']={name:'Mass Undertaker',desc:'Mass Graves!',req:{'Mass Graves':true},use:{'stone tools':1}};
+		
 	G.getDict('architect')
 		effects:[
 		{type:'function',func:function(me){
@@ -222,7 +224,7 @@ func:function()
 		{
 			G.buyUnitByName('Mass Grave',toMake,true);
 		}
-	},mode:'mass undertaker'}
+	},mode:'MassUndertaker'}
 ],	
 		
 		
