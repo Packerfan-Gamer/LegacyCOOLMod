@@ -56,7 +56,30 @@ func:function()
 		partOf:'misc materials',
 		category:'misc',
 	});
+		//New Modes for hunter (I hope I do this right)
+		
+		G.getDict('hunter').modes['trapping']={name:'Trap Animals',desc:'Trap Animals with Archaic Traps',req:{'Trapping':true},use:{'Archaic Trap':5}};
+		G.getDict('hunter').effects.push({type:'gather',context:'hunt',amount:5,max:5,mode:{'trapping':true}});
+		
+		//New Modes for Artisan to make the traps
+		
+		G.getDict('artisan').modes['trapmaking']={name:'Make Archaic Traps',desc:'Archaic Traps',req:{'Trapping':true},use:{'stone tools':1}};
+		G.getDict('artisan').effects.push({type:'convert',from:{'sticks':1,'thorns':2},into:{'Archaic Trap'},every:5,mode:{'trapmaking':true}});
+		
+		//related Tech!
+		
+		new G.Tech({
+		name:'Trapping',
+		desc:'Allows the artisan to make archaic traps, which the hunter can use to trap animals with.',
+		icon:[0,0,'imageSheet'],
+		cost:{'insight':20},
+		req:{'bows':true},
+	});
 	
+		
+		
+		//Wheat and stuff
+		
 		new G.Res({
 		name:'Wheat',
 		desc:'[Wheat] tastes unpleasant but can be used for many things. You can grind wheat into flour, or make beer.',
@@ -173,7 +196,8 @@ func:function()
 		cost:{'insight':20},
 		req:{'Grinding':true, 'fire-making':true},
 	});
-	
+		
+		
 	//new Modes for firekeepers to make bread from flour
 	G.getDict('firekeeper').modes['WheatBread']={name:'Make Wheat Bread',desc:'Use Wheat Flour to make Wheat Bread.',req:{'Bread Baking':true},use:{'stone tools':1}};
 	G.getDict('firekeeper').effects.push({type:'convert',from:{'Wheat Flour':1},into:{'Wheat Bread':1},every:5,mode:'WheatBread'});
