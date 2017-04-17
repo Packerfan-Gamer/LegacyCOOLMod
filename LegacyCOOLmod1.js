@@ -57,7 +57,7 @@ func:function()
 		category:'misc',
 	});
 		//New Modes for hunter (I hope I do this right)
-		
+		/*
 		G.getDict('hunter').modes['trapping']={name:'Trap Animals',desc:'Trap Animals with Archaic Traps',req:{'Trapping':true},use:{'Archaic Trap':5}};
 		G.getDict('hunter').effects.push({type:'gather',context:'hunt',amount:5,max:5,mode:{'trapping':true}});
 		
@@ -65,7 +65,7 @@ func:function()
 		
 		G.getDict('artisan').modes['trapmaking']={name:'Make Archaic Traps',desc:'Archaic Traps',req:{'Trapping':true},use:{'stone tools':1}};
 		G.getDict('artisan').effects.push({type:'convert',from:{'sticks':1,'thorns':2},into:{'Archaic Trap'},every:5,mode:{'trapmaking':true}});
-		
+		*/
 		//related Tech!
 		
 		new G.Tech({
