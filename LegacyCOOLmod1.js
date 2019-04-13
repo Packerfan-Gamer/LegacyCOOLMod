@@ -1,11 +1,12 @@
 //DONE: Add Tech to unlock a policy to get people to eat herbs or not. Add grain (wheat, barley, rye, etc.) to make bread. Add Mass graves and crematoriums. 
+//DONE: Add Cemetaries, and alter the current religious buildings.
 //TODO: Add tech to unlock policy to get people to eat raw grains or not. 
 //TODO: Add Religous buildings to increase faith and culture. Add priests along with the buildings. 
 
 G.AddData({
 name:'Legacy COOL! Mod',
 author:'Packerfan-Gamer',
-desc:'A mod that adds cool things to the game. Currently have berries, juice, and Mass Graves (oh yes!!), and so much moar!',
+desc:'A mod that adds cool things to the game. Currently have berries, juice, and Mass Graves (oh yes!!), and so much more!',
 engineVersion:1,
 manifest:'ModManifest.js',
 requires:['Default dataset*'],
@@ -35,7 +36,7 @@ func:function()
 		name:'Berries',
 		desc:'[Berries] taste sweet, but spoil quickly.',
 		icon:[1,1,'imageSheet'],
-		turnToByContext:{'eat':{'health':0.05,'happiness':0.1},'decay':{'spoiled food':0.8}},//this basically translates to : "when eaten, generate some health and happiness; when rotting, turn into either nothing or some spoiled food"
+		turnToByContext:{'eat':{'health':0.05,'happiness':0.3},'decay':{'spoiled food':0.8}},//this basically translates to : "when eaten, generate some health and happiness; when rotting, turn into either nothing or some spoiled food"
 		partOf:'food',
 		category:'food',
 	});
@@ -169,7 +170,7 @@ func:function()
 		desc:'@[artisan]s can make juice.',
 		icon:[2,0,'imageSheet'],
 		cost:{'insight':20},
-		req:{'plant lore':true},
+		req:{'Berry Picking':true},
 	});
 	
 	//new tech to allow mass graves
@@ -180,7 +181,17 @@ func:function()
 		cost:{'insight':20},
 		req:{'burial':true},
 	});
-	
+		
+	//new tech to allow cemetaries
+		new G.Tech({
+		name:'Cemetaries',
+		desc:'Unlocks Cemetaries, which can store 50 graves inside.',
+		icon:[2,2,'imageSheet'],
+		cost:{'insight':20},
+		req:{'Mass Burial':true, 'churches':true},
+	});
+		
+		
 	//new tech to allow the grinding of wheat and bread-baking
 		new G.Tech({
 		name:'Grinding',
@@ -246,6 +257,32 @@ func:function()
 		category:'civil',
 	});
 	
+		new G.Unit({
+		name:'Cemetary',
+		desc:'@provides 50 [burial spot]s, in which the [corpse,dead] are automatically interred one by one@graves with buried corpses decay over time, freeing up land for more graves<>A small cemetary, where the dead may find rest.//Burying your dead helps prevent [health,disease] and makes your people slightly [happiness,happier].',
+		icon:[1,2,'imageSheet'],
+		cost:{},
+		use:{'land':2},
+		//require:{'worker':1,'knapped tools':1},
+		effects:[
+			{type:'provide',what:{'burial spot':50}},
+			//{type:'waste',chance:1/100,desired:true},
+			{type:'function',func:function(me){
+				var buried=G.getRes('burial spot').used;
+				if (buried>0 && G.getRes('burial spot').amount>=buried)
+				{
+					var toDie=Math.min(me.amount,randomFloor(buried*0.0001));
+					me.targetAmount-=toDie;
+					G.wasteUnit(me,toDie);
+					G.getRes('burial spot').amount-=toDie;
+					G.getRes('burial spot').used-=toDie;
+				}
+			}}
+		],
+		req:{'Cemetaries':true},
+		category:'civil',
+	});
+		
 		G.getDict('architect').modes['MassUndertaker']={name:'Mass Undertaker',desc:'Mass Graves!',req:{'Mass Burial':true}};
 		
 		G.getDict('architect')
@@ -288,8 +325,8 @@ func:function()
 		//CHURCHES!!
 		
 		new G.Unit({
-		name:'house of worship',
-		desc:'A simple place for your people to worship.',
+		name:'House of Worship',
+		desc:'A small building thats allows your people to worship their gods.',
 		icon:[21,3],
 		cost:{'archaic building materials':100, 'basic building materials':10},
 		use:{'land':1},
@@ -304,7 +341,7 @@ func:function()
 
 		new G.Unit({
 		name:'church',
-		desc:'A more advanced place for your people to worship.',
+		desc:'A larger and more centralized building for your people to worship their gods. Allows for greater religious thinking.',
 		icon:[21,3],
 		cost:{'basic building materials':100, 'precious building materials':75},
 		use:{'land':1},
@@ -314,7 +351,7 @@ func:function()
 			{type:'provide',what:{'spirituality':5}},
 			{type:'waste',chance:0.01/1000}
 		],
-		req:{'construction':true, 'religion':true},
+		req:{'construction':true, 'churches':true},
 		category:'spiritual',
 	});
 	
@@ -322,7 +359,7 @@ func:function()
 		
 		new G.Tech({
 		name:'religion',
-		desc:'Create a religion to worship gods or goddesses. Unlocks [house of worship]',
+		desc:'Start worshipping several gods and godesses. Early religious thinking. Unlocks [house of worship]',
 		icon:[0,0,'imageSheet'],
 		cost:{'insight':20},
 		effects:[
@@ -333,7 +370,7 @@ func:function()
 	
 		new G.Tech({
 		name:'churches',
-		desc:'Unlocks [church]',
+		desc:'Unlocks [church], and greater religious thinking.',
 		icon:[0,0,'imageSheet'],
 		cost:{'insight':30},
 		req:{'religion':true},
