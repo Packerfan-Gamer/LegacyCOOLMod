@@ -52,31 +52,43 @@ func:function()
 
 		new G.Res({
 		name:'Archaic Trap',
-		desc:'[Archaic Trap, Traps] can be used by the hunters to trap animals. (not yet)',
+		desc:'[Archaic Trap, Traps] can be used by the hunters to trap animals. (WIP)',
 		icon:[0,0,'imageSheet'],
-		partOf:'misc materials',
-		category:'misc',
+		category:'gear',
 	});
 		//New Modes for hunter (I hope I do this right)
 		
-		G.getDict('hunter').modes['trapping']={name:'Trap Animals',desc:'Trap Animals with Archaic Traps',req:{'Trapping':true},use:{'Archaic Trap':5}};
+		G.getDict('hunter').modes['trapping']={name:'Trap Animals',desc:'Trap Animals with Archaic Traps',req:{'Basic Trapping':true},use:{'Archaic Trap':5}};
 		G.getDict('hunter').effects.push({type:'gather',context:'hunt',amount:5,max:5,mode:{'trapping':true}});
 		
 		//New Modes for Artisan to make the traps
 		
-		G.getDict('artisan').modes['trapmaking']={name:'Make Archaic Traps',desc:'Archaic Traps',req:{'Trapping':true},use:{'stone tools':1}};
-		G.getDict('artisan').effects.push({type:'convert',from:{'sticks':1,'thorns':2},into:'Archaic Trap',every:5,mode:{'trapmaking':true}});
+		G.getDict('artisan').modes['trapmaking']={name:'Make Archaic Traps',desc:'Archaic Traps',req:{'Basic Trapping':true},use:{'stone tools':1}};
+		G.getDict('artisan').effects.push({type:'convert',from:{'sticks':1,'Thorns':2},into:'Archaic Trap',every:5,mode:{'trapmaking':true}});
 		
 		//related Tech!
 		
 		new G.Tech({
-		name:'Trapping',
+		name:'Basic Trapping',
 		desc:'Allows the artisan to make archaic traps, which the hunter can use to trap animals with.',
 		icon:[0,0,'imageSheet'],
 		cost:{'insight':20},
 		req:{'bows':true},
 	});
-	
+		new G.Tech({
+		name:'Stone Trapping',
+		desc:'Allows the artisan to make traps out of stone, which the hunter can use to trap animals with. (WIP)',
+		icon:[0,0,'imageSheet'],
+		cost:{'insight':25},
+		req:{'Basic Trapping':true},
+	});
+		new G.Tech({
+		name:'Metal Trapping',
+		desc:'Allows the artisan to make metal traps, which the hunter can use to trap animals with. (WIP)',
+		icon:[0,0,'imageSheet'],
+		cost:{'insight':30},
+		req:{'Stone Trapping':true},
+	});
 		
 		
 		//Wheat and stuff
@@ -146,7 +158,7 @@ func:function()
 		//adding a new mode to artisans so they can make juice from fruit
 	G.getDict('artisan').modes['MakeJuice']={name:'Make Juice',desc:'Use fruit and berries to make juice.',req:{'Juice Making':true},use:{'stone tools':1}};
 	//G.getDict('artisan').modes['MakeJuiceBerry']={name:'Make Juice from Berries',desc:'Use Berries to make juice.',req:{'Juice Making':true, 'Berry Picking':true},use:{'stone tools':1}};
-	G.getDict('artisan').modes['GrindGrain']={name:'Grind Grain into Flour',desc:'Use Wheat to make Wheat Flour',req:{'Grinding':true},use:{'stone tools':1}};
+	G.getDict('artisan').modes['GrindGrain']={name:'Grind Grain into Flour',desc:'Use Grain to make Flour',req:{'Grinding':true},use:{'stone tools':1}};
 	//G.getDict('artisan').effects.push({type:'convert',from:{'hot pepper':3,'bees':3},into:{'hot sauce':1},every:3,mode:'hot sauce'});
 	G.getDict('artisan').effects.push({type:'convert',from:{'fruit':3},into:{'Fruit Juice':2},every:5,mode:'MakeJuice'});
 	G.getDict('artisan').effects.push({type:'convert',from:{'Berries':3},into:{'Berry Juice':4},every:5,mode:'MakeJuice'});
@@ -161,7 +173,7 @@ func:function()
 		name:'Berry Picking',
 		desc:'@[gatherer]s can find berries.',
 		icon:[2,1,'imageSheet'],
-		cost:{'insight':15},
+		cost:{'insight':10},
 		req:{'plant lore':true},
 	});
   //New tech to allow the making of juice
@@ -169,10 +181,19 @@ func:function()
 		name:'Juice Making',
 		desc:'@[artisan]s can make juice.',
 		icon:[2,0,'imageSheet'],
-		cost:{'insight':20},
+		cost:{'insight':10},
 		req:{'Berry Picking':true},
 	});
-	
+		new G.Tech({
+		name:'Agriculture',
+		desc:'Develop more complex ideas surrounding plants. May lead to domination over nature. (WIP)',
+		icon:[0,0,'imageSheet'],
+		cost:{'insight':20},
+		req:{'plant lore':true},
+	});
+		
+		
+		
 	//new tech to allow mass graves
 		new G.Tech({
 		name:'Mass Burial',
@@ -197,14 +218,14 @@ func:function()
 		name:'Grinding',
 		desc:'Unlocks the secrets of grinding grain into flour.',
 		icon:[3,1,'imageSheet'],
-		cost:{'insight':20},
+		cost:{'insight':10},
 		req:{'sedentism':true},
 	});
 		new G.Tech({
 		name:'Bread Baking',
 		desc:'Unlocks the secrets of baking bread.',
 		icon:[3,0,'imageSheet'],
-		cost:{'insight':20},
+		cost:{'insight':15},
 		req:{'Grinding':true, 'fire-making':true},
 	});
 		
@@ -221,7 +242,7 @@ func:function()
 		desc:'@your people appreciate [Fruit Juice] and [Berry Juice] twice as much and will be twice as happy from consuming it.',
 		icon:[2,0,'imageSheet'],
 		chance:10,
-		req:{'Juice Making':true, 'Berry Picking':true},
+		req:{'Juice Making':true},
 		effects:[
 			{type:'function',func:function(){G.getDict('Fruit Juice').turnToByContext['eat']['happiness']=0.2;}}, 	
       {type:'function',func:function(){G.getDict('Berry Juice').turnToByContext['eat']['happiness']=0.2;}},//this is a custom function executed when we gain the trait
@@ -328,7 +349,7 @@ func:function()
 		name:'House of Worship',
 		desc:'A small building thats allows your people to worship their gods.',
 		icon:[21,3],
-		cost:{'archaic building materials':100, 'basic building materials':10},
+		cost:{'archaic building materials':150},
 		use:{'land':1},
 		//require:{'worker':3,'metal tools':3},
 		effects:[
@@ -343,7 +364,7 @@ func:function()
 		name:'church',
 		desc:'A larger and more centralized building for your people to worship their gods. Allows for greater religious thinking.',
 		icon:[21,3],
-		cost:{'basic building materials':100, 'precious building materials':75},
+		cost:{'basic building materials':250},
 		use:{'land':1},
 		//require:{'worker':3,'metal tools':3},
 		effects:[
@@ -361,7 +382,7 @@ func:function()
 		name:'religion',
 		desc:'Start worshipping several gods and godesses. Early religious thinking. Unlocks [house of worship]',
 		icon:[0,0,'imageSheet'],
-		cost:{'insight':20},
+		cost:{'insight':15},
 		effects:[
 			{type:'provide',what:{'spirituality':10}},
 		],
@@ -372,7 +393,7 @@ func:function()
 		name:'churches',
 		desc:'Unlocks [church], and greater religious thinking.',
 		icon:[0,0,'imageSheet'],
-		cost:{'insight':30},
+		cost:{'insight':25},
 		req:{'religion':true},
 	});
 	
