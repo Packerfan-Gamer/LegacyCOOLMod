@@ -374,7 +374,21 @@ func:function()
 		req:{'construction':true, 'churches':true},
 		category:'spiritual',
 	});
-	
+		new G.Unit({
+		name:'cathedral',
+		desc:'A large building for your people to worship their gods. Allows for even greater religious thinking.',
+		icon:[21,3],
+		cost:{'basic building materials':500},
+		use:{'land':1},
+		//require:{'worker':3,'metal tools':3},
+		effects:[
+			{type:'provide',what:{'faith':15}},
+			{type:'provide',what:{'spirituality':10}},
+			{type:'waste',chance:0.01/1000}
+		],
+		req:{'construction':true, 'cathedrals':true},
+		category:'spiritual',
+	});
 	
 		
 		new G.Tech({
@@ -394,6 +408,20 @@ func:function()
 		icon:[0,0,'imageSheet'],
 		cost:{'insight':25},
 		req:{'religion':true},
+	});
+		new G.Tech({
+		name:'cathedrals',
+		desc:'Unlocks [cathedral], and even greater religious thinking.',
+		icon:[0,0,'imageSheet'],
+		cost:{'insight':30},
+		req:{'churches':true},
+	});
+		new G.Tech({
+		name:'temples',
+		desc:'Unlocks temple building. (WIP)',
+		icon:[0,0,'imageSheet'],
+		cost:{'insight':50},
+		req:{'cathedrals':true, 'monument-building':true},
 	});
 	
 		
