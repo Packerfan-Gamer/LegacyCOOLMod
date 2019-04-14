@@ -17,21 +17,21 @@ func:function()
 	
 	//First we add the new resources 
 	new G.Res({
-		name:'Fruit Juice',
-		desc:'[Fruit Juice] tastes better than [water].',
+		name:'Juice',
+		desc:'[Juice] tastes better than [water].',
 		icon:[0,1,'imageSheet'],
-		turnToByContext:{'eat':{'health':0.06,'happiness':0.1},'decay':{'spoiled food':0.2}},//this basically translates to : "when eaten, generate some health and happiness; when rotting, turn into either nothing or some spoiled food"
+		turnToByContext:{'eat':{'health':0.08,'happiness':0.2},'decay':{'spoiled food':0.2}},//this basically translates to : "when eaten, generate some health and happiness; when rotting, turn into either nothing or some spoiled food"
 		partOf:'food',
 		category:'food',
 	});
-		new G.Res({
+	/*	new G.Res({
 		name:'Berry Juice',
 		desc:'[Berry Juice] tastes better than [water].',
 		icon:[0,1,'imageSheet'],
 		turnToByContext:{'eat':{'health':0.07,'happiness':0.1},'decay':{'spoiled food':0.2}},//this basically translates to : "when eaten, generate some health and happiness; when rotting, turn into either nothing or some spoiled food"
 		partOf:'food',
 		category:'food',
-	});
+	});*/
 		new G.Res({
 		name:'Berries',
 		desc:'[Berries] taste sweet, but spoil quickly.',
@@ -160,8 +160,8 @@ func:function()
 	//G.getDict('artisan').modes['MakeJuiceBerry']={name:'Make Juice from Berries',desc:'Use Berries to make juice.',req:{'Juice Making':true, 'Berry Picking':true},use:{'stone tools':1}};
 	G.getDict('artisan').modes['GrindGrain']={name:'Grind Grain into Flour',desc:'Use Grain to make Flour',req:{'Grinding':true},use:{'stone tools':1}};
 	//G.getDict('artisan').effects.push({type:'convert',from:{'hot pepper':3,'bees':3},into:{'hot sauce':1},every:3,mode:'hot sauce'});
-	G.getDict('artisan').effects.push({type:'convert',from:{'fruit':3},into:{'Fruit Juice':2},every:5,mode:'MakeJuice'});
-	G.getDict('artisan').effects.push({type:'convert',from:{'Berries':3},into:{'Berry Juice':4},every:5,mode:'MakeJuice'});
+	G.getDict('artisan').effects.push({type:'convert',from:{'fruit':3},into:{'Juice':3},every:5,mode:'MakeJuice'});
+	G.getDict('artisan').effects.push({type:'convert',from:{'Berries':3},into:{'Juice':6},every:5,mode:'MakeJuice'});
 		
 	G.getDict('artisan').effects.push({type:'convert',from:{'Wheat':1},into:{'Wheat Flour':2},every:5,mode:'GrindGrain'});
 	G.getDict('artisan').effects.push({type:'convert',from:{'Barley':1},into:{'Barley Flour':2},every:5,mode:'GrindGrain'});
@@ -239,13 +239,12 @@ func:function()
   
   new G.Trait({
 		name:'Juice Love',
-		desc:'@your people appreciate [Fruit Juice] and [Berry Juice] twice as much and will be twice as happy from consuming it.',
+		desc:'@your people appreciate [Juice] twice as much and will be twice as happy from consuming it.',
 		icon:[2,0,'imageSheet'],
 		chance:10,
 		req:{'Juice Making':true},
 		effects:[
-			{type:'function',func:function(){G.getDict('Fruit Juice').turnToByContext['eat']['happiness']=0.2;}}, 	
-      {type:'function',func:function(){G.getDict('Berry Juice').turnToByContext['eat']['happiness']=0.2;}},//this is a custom function executed when we gain the trait
+			{type:'function',func:function(){G.getDict('Juice').turnToByContext['eat']['happiness']=0.2;}}
     ]
     });
     
