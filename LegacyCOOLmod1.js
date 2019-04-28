@@ -158,7 +158,7 @@ func:function()
 	G.getDict('grass').res['gather']['Barley']=0.01;
 		//adding a new mode to artisans so they can make juice from fruit
 	G.getDict('artisan').modes['MakeJuice']={name:'Make Juice',desc:'Use fruit and berries to make juice.',req:{'Juice Making':true},use:{'stone tools':1}};
-	//G.getDict('artisan').modes['MakeJuiceBerry']={name:'Make Juice from Berries',desc:'Use Berries to make juice.',req:{'Juice Making':true, 'Berry Picking':true},use:{'stone tools':1}};
+	//G.getDict('artisan').modes['MakeJuiceBerry']={name:'Make Juice from Berries',desc:'Use Berries to make juice.',req:{'Juice Making':true, 'plant lore II':true},use:{'stone tools':1}};
 	G.getDict('artisan').modes['GrindGrain']={name:'Grind Grain into Flour',desc:'Use Grain to make Flour',req:{'Grinding':true},use:{'stone tools':1}};
 	//G.getDict('artisan').effects.push({type:'convert',from:{'hot pepper':3,'bees':3},into:{'hot sauce':1},every:3,mode:'hot sauce'});
 	G.getDict('artisan').effects.push({type:'convert',from:{'fruit':3},into:{'Juice':3},every:5,mode:'MakeJuice'});
@@ -166,12 +166,12 @@ func:function()
 		
 	G.getDict('artisan').effects.push({type:'convert',from:{'Wheat':1},into:{'Wheat Flour':2},every:5,mode:'GrindGrain'});
 	G.getDict('artisan').effects.push({type:'convert',from:{'Barley':1},into:{'Barley Flour':2},every:5,mode:'GrindGrain'});
-	//Berry Picking Makes Gatherers pick berries
-	G.getDict('gatherer').effects.push({type:'gather',context:'gather',what:{'Berries': 1},amount:1,max:1,req:{'Berry Picking':true}});
-	G.getDict('gatherer').effects.push({type:'gather',context:'gather',what:{'Thorns': 3},amount:1,max:1,req:{'Berry Picking':true}});   
+	//plant lore II Makes Gatherers pick berries
+	G.getDict('gatherer').effects.push({type:'gather',context:'gather',what:{'Berries': 1},amount:1,max:1,req:{'plant lore II':true}});
+	G.getDict('gatherer').effects.push({type:'gather',context:'gather',what:{'Thorns': 3},amount:1,max:1,req:{'plant lore II':true}});   
 	//Then we add a new technology which is required by the gatherers to gain access to the "berry" mode :
 	new G.Tech({
-		name:'Berry Picking',
+		name:'plant lore II',
 		desc:'@[gatherer]s can find berries.',
 		icon:[2,1,'imageSheet'],
 		cost:{'insight':10},
@@ -183,14 +183,14 @@ func:function()
 		desc:'@[artisan]s can make juice.',
 		icon:[2,0,'imageSheet'],
 		cost:{'insight':10},
-		req:{'Berry Picking':true},
+		req:{'plant lore II':true},
 	});
 		new G.Tech({
 		name:'Agriculture',
 		desc:'Develop more complex ideas surrounding plants. May lead to domination over nature. (WIP)',
 		icon:[0,0,'imageSheet'],
 		cost:{'insight':20},
-		req:{'plant lore':true},
+		req:{'plant lore II':true},
 	});
 		
 		
