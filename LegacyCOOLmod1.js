@@ -1,5 +1,6 @@
 //DONE: Add Tech to unlock a policy to get people to eat herbs or not. Add grain (wheat, barley, rye, etc.) to make bread. Add Mass graves and crematoriums. 
 //DONE: Add Cemetaries, and alter the current religious buildings.
+//WIP: Updated some icons for the stylesheet...
 //TODO: Add tech to unlock policy to get people to eat raw grains or not. 
 //TODO: Add Religous buildings to increase faith and culture. Add priests along with the buildings. 
 
@@ -10,7 +11,7 @@ desc:'A mod that adds cool things to the game. Currently have berries, juice, an
 engineVersion:1,
 manifest:'ModManifest.js',
 requires:['Default dataset*'],
-sheets:{'imageSheet':'http://i.imgur.com/owlnODu.png'},//custom stylesheet (note : broken in IE and Edge for the time being)
+sheets:{'imageSheet':'https://i.imgur.com/lG1JKpU.png'},//custom stylesheet (note : broken in IE and Edge for the time being)
 func:function()
 	{	
 
@@ -45,7 +46,7 @@ func:function()
 		new G.Res({
 		name:'Thorns',
 		desc:'[Thorns] hurt alot!',
-		icon:[0,0,'imageSheet'],
+		icon:[4,2,'imageSheet'],
 		partOf:'misc materials',
 		category:'misc',
 	});
@@ -71,7 +72,7 @@ func:function()
 		new G.Tech({
 		name:'Basic Trapping',
 		desc:'Allows the artisan to make archaic traps, which the hunter can use to trap animals with.',
-		icon:[0,0,'imageSheet'],
+		icon:[4,2,'imageSheet'],
 		cost:{'insight':20},
 		req:{'bows':true},
 	});
@@ -157,7 +158,7 @@ func:function()
 	G.getDict('grass').res['gather']['Barley']=0.01;
 		//adding a new mode to artisans so they can make juice from fruit
 	G.getDict('artisan').modes['MakeJuice']={name:'Make Juice',desc:'Use fruit and berries to make juice.',req:{'Juice Making':true},use:{'stone tools':1}};
-	//G.getDict('artisan').modes['MakeJuiceBerry']={name:'Make Juice from Berries',desc:'Use Berries to make juice.',req:{'Juice Making':true, 'Berry Picking':true},use:{'stone tools':1}};
+	//G.getDict('artisan').modes['MakeJuiceBerry']={name:'Make Juice from Berries',desc:'Use Berries to make juice.',req:{'Juice Making':true, 'plant lore II':true},use:{'stone tools':1}};
 	G.getDict('artisan').modes['GrindGrain']={name:'Grind Grain into Flour',desc:'Use Grain to make Flour',req:{'Grinding':true},use:{'stone tools':1}};
 	//G.getDict('artisan').effects.push({type:'convert',from:{'hot pepper':3,'bees':3},into:{'hot sauce':1},every:3,mode:'hot sauce'});
 	G.getDict('artisan').effects.push({type:'convert',from:{'fruit':3},into:{'Juice':3},every:5,mode:'MakeJuice'});
@@ -165,12 +166,12 @@ func:function()
 		
 	G.getDict('artisan').effects.push({type:'convert',from:{'Wheat':1},into:{'Wheat Flour':2},every:5,mode:'GrindGrain'});
 	G.getDict('artisan').effects.push({type:'convert',from:{'Barley':1},into:{'Barley Flour':2},every:5,mode:'GrindGrain'});
-	//Berry Picking Makes Gatherers pick berries
-	G.getDict('gatherer').effects.push({type:'gather',context:'gather',what:{'Berries': 1},amount:1,max:1,req:{'Berry Picking':true}});
-	G.getDict('gatherer').effects.push({type:'gather',context:'gather',what:{'Thorns': 3},amount:1,max:1,req:{'Berry Picking':true}});   
+	//plant lore II Makes Gatherers pick berries
+	G.getDict('gatherer').effects.push({type:'gather',context:'gather',what:{'Berries': 1},amount:1,max:1,req:{'plant lore II':true}});
+	G.getDict('gatherer').effects.push({type:'gather',context:'gather',what:{'Thorns': 3},amount:1,max:1,req:{'plant lore II':true}});   
 	//Then we add a new technology which is required by the gatherers to gain access to the "berry" mode :
 	new G.Tech({
-		name:'Berry Picking',
+		name:'plant lore II',
 		desc:'@[gatherer]s can find berries.',
 		icon:[2,1,'imageSheet'],
 		cost:{'insight':10},
@@ -182,14 +183,14 @@ func:function()
 		desc:'@[artisan]s can make juice.',
 		icon:[2,0,'imageSheet'],
 		cost:{'insight':10},
-		req:{'Berry Picking':true},
+		req:{'plant lore II':true},
 	});
 		new G.Tech({
 		name:'Agriculture',
 		desc:'Develop more complex ideas surrounding plants. May lead to domination over nature. (WIP)',
 		icon:[0,0,'imageSheet'],
 		cost:{'insight':20},
-		req:{'plant lore':true},
+		req:{'plant lore II':true},
 	});
 		
 		
@@ -207,7 +208,7 @@ func:function()
 		new G.Tech({
 		name:'Cemetaries',
 		desc:'Unlocks Cemetaries, which can store 50 graves inside.',
-		icon:[2,2,'imageSheet'],
+		icon:[4,1,'imageSheet'],
 		cost:{'insight':25},
 		req:{'Mass Burial':true, 'churches':true},
 	});
@@ -280,7 +281,7 @@ func:function()
 		new G.Unit({
 		name:'Cemetary',
 		desc:'@provides 50 [burial spot]s, in which the [corpse,dead] are automatically interred one by one@graves with buried corpses decay over time, freeing up land for more graves<>A small cemetary, where the dead may find rest.//Burying your dead helps prevent [health,disease] and makes your people slightly [happiness,happier].',
-		icon:[1,2,'imageSheet'],
+		icon:[4,0,'imageSheet'],
 		cost:{},
 		use:{'land':2},
 		//require:{'worker':1,'knapped tools':1},
@@ -291,7 +292,7 @@ func:function()
 				var buried=G.getRes('burial spot').used;
 				if (buried>0 && G.getRes('burial spot').amount>=buried)
 				{
-					var toDie=Math.min(me.amount,randomFloor(buried*0.0001));
+					var toDie=Math.min(me.amount,randomFloor(buried*0.00001));
 					me.targetAmount-=toDie;
 					G.wasteUnit(me,toDie);
 					G.getRes('burial spot').amount-=toDie;
