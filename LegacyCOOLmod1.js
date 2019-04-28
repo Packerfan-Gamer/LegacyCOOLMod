@@ -214,7 +214,7 @@ func:function()
 		effects:[
 			{type:'gather',context:'gather',amount:10,max:30,mode:'any'},
 			{type:'gather',context:'gather',what:{'herb':5},max:30,notMode:'off'},
-			{type:'gather',context:'gather',what:{'Wheat':50},max:30,mode:'Wheat'},
+			{type:'gather',context:'gather',what:{'Wheat':50},max:30,mode:'wheat'},
 			/*{type:'gather',context:'mine',what:{'salt':50},max:30,mode:'salt'},
 			{type:'gather',context:'mine',what:{'copper ore':50},max:30,mode:'copper'},
 			{type:'gather',context:'mine',what:{'tin ore':50},max:30,mode:'tin'},
