@@ -186,12 +186,46 @@ func:function()
 		req:{'plant lore II':true},
 	});
 		new G.Tech({
-		name:'Agriculture',
-		desc:'Develop more complex ideas surrounding plants. May lead to domination over nature. (WIP)',
+		name:'agriculture',
+		desc:'Develop more complex ideas surrounding plants. May lead to simple farms and gardens.',
 		icon:[0,0,'imageSheet'],
 		cost:{'insight':20},
 		req:{'plant lore II':true},
 	});
+	
+		new G.Unit({
+		name:'small farm',
+		desc:'Provides food for your civilization, so you don\'t have too.',
+		icon:[0,0,'imageSheet'],
+		cost:{'archaic building materials':150},
+		use:{'land':3},
+		//require:{'worker':3,'stone tools':3},
+		modes:{
+			'off':G.MODE_OFF,
+			'any':{name:'Any',icon:[8,8],desc:'Farm using any random seed you find. You may not get optimal results.',use:{'worker':3,'stone tools':3}},
+			'wheat':{name:'Wheat',icon:[1,3,'imageSheet'],desc:'Farm for [Wheat]. It isn\'t very impressive, but it\'ll get you somewhere.',use:{'worker':3,'stone tools':3}},
+			/*'salt':{name:'Salt',icon:[11,7],desc:'Mine for [salt].',req:{'prospecting':true},use:{'worker':3,'metal tools':3}},
+			'copper':{name:'Copper',icon:[9,8],desc:'Mine for [copper ore] with x5 efficiency.',req:{'prospecting':true},use:{'worker':3,'metal tools':3}},
+			'tin':{name:'Tin',icon:[13,8],desc:'Mine for [tin ore] with x5 efficiency.',req:{'prospecting':true},use:{'worker':3,'metal tools':3}},
+			'iron':{name:'Iron',icon:[10,8],desc:'Mine for [iron ore] with x5 efficiency.',req:{'prospecting':true},use:{'worker':3,'metal tools':3}},
+			'gold':{name:'Gold',icon:[11,8],desc:'Mine for [gold ore] with x5 efficiency.',req:{'prospecting':true},use:{'worker':3,'metal tools':3}},*/
+		},
+		effects:[
+			{type:'gather',context:'gather',amount:10,max:30,mode:'any'},
+			{type:'gather',context:'gather',what:{'herb':5},max:30,notMode:'off'},
+			{type:'gather',context:'gather',what:{'Wheat':50},max:30,mode:'Wheat'},
+			/*{type:'gather',context:'mine',what:{'salt':50},max:30,mode:'salt'},
+			{type:'gather',context:'mine',what:{'copper ore':50},max:30,mode:'copper'},
+			{type:'gather',context:'mine',what:{'tin ore':50},max:30,mode:'tin'},
+			{type:'gather',context:'mine',what:{'iron ore':50},max:30,mode:'iron'},
+			{type:'gather',context:'mine',what:{'gold ore':50},max:30,mode:'gold'},
+			{type:'function',func:unitGetsConverted({'wounded':1},0.001,0.01,'[X] [people].','mine collapsed, wounding its miners','mines collapsed, wounding their miners'),chance:1/50}*/
+		],
+		gizmos:true,
+		req:{'agriculture':true},
+		category:'production',
+	});
+		
 		
 		
 		
