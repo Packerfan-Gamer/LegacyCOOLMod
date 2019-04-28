@@ -1,5 +1,6 @@
 //DONE: Add Tech to unlock a policy to get people to eat herbs or not. Add grain (wheat, barley, rye, etc.) to make bread. Add Mass graves and crematoriums. 
 //DONE: Add Cemetaries, and alter the current religious buildings.
+//WIP: Add Farms to the game - to make food production 'more idle'. Still incomplete
 //WIP: Updated some icons for the stylesheet...
 //TODO: Add tech to unlock policy to get people to eat raw grains or not. 
 //TODO: Add Religous buildings to increase faith and culture. Add priests along with the buildings. 
