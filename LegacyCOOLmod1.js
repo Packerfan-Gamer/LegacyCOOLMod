@@ -12,7 +12,7 @@ desc:'A mod that adds cool things to the game. Currently have berries, juice, an
 engineVersion:1,
 manifest:'ModManifest.js',
 requires:['Default dataset*'],
-sheets:{'imageSheet':'https://i.imgur.com/lG1JKpU.png'},//custom stylesheet (note : broken in IE and Edge for the time being)
+sheets:{'imageSheet':'https://i.imgur.com/HxvUUkz.png'},//custom stylesheet (note : broken in IE and Edge for the time being)
 func:function()
 	{	
 
@@ -189,7 +189,7 @@ func:function()
 		new G.Tech({
 		name:'agriculture',
 		desc:'Develop more complex ideas surrounding plants. May lead to simple farms and gardens.',
-		icon:[0,0,'imageSheet'],
+		icon:[4,3,'imageSheet'],
 		cost:{'insight':20},
 		req:{'plant lore II':true},
 	});
@@ -197,7 +197,7 @@ func:function()
 		new G.Unit({
 		name:'small farm',
 		desc:'Provides food for your civilization, so you don\'t have too.',
-		icon:[0,0,'imageSheet'],
+		icon:[3,3,'imageSheet'],
 		cost:{'archaic building materials':150},
 		use:{'land':3},
 		//require:{'worker':3,'stone tools':3},
