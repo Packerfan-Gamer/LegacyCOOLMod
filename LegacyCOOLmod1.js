@@ -1,6 +1,6 @@
 //DONE: Add Tech to unlock a policy to get people to eat herbs or not. Add grain (wheat, barley, rye, etc.) to make bread. Add Mass graves and crematoriums. 
 //DONE: Add Cemetaries, and alter the current religious buildings.
-//WIP: Add Farms to the game - to make food production 'more idle'. Still incomplete
+//WIP: Add Farms to the game - to make food production 'more idle'. (just added a "category" on the sidebar) Still incomplete 
 //WIP: Updated some icons for the stylesheet...
 //TODO: Add tech to unlock policy to get people to eat raw grains or not. 
 //TODO: Add Religous buildings to increase faith and culture. Add priests along with the buildings. 
@@ -15,8 +15,8 @@ requires:['Default dataset*'],
 sheets:{'imageSheet':'https://i.imgur.com/HxvUUkz.png'},//custom stylesheet (note : broken in IE and Edge for the time being)
 func:function()
 	{	
-
-			G.resCategories={
+//a really ugly way too add a new category in the sidebar. i couldn't figure out how to slip another one in there... hopefully someone can help
+		G.resCategories={
 		'main':{
 			name:'Essentials',
 			base:[],
@@ -53,22 +53,6 @@ func:function()
 		},
 	};
 	//First we add the new resources 
-	new G.Res({
-		name:'Juice',
-		desc:'[Juice] tastes better than [water].',
-		icon:[0,1,'imageSheet'],
-		turnToByContext:{'eat':{'health':0.08,'happiness':0.2},'decay':{'spoiled food':0.2}},//this basically translates to : "when eaten, generate some health and happiness; when rotting, turn into either nothing or some spoiled food"
-		partOf:'food',
-		category:'food',
-	});
-	/*	new G.Res({
-		name:'Berry Juice',
-		desc:'[Berry Juice] tastes better than [water].',
-		icon:[0,1,'imageSheet'],
-		turnToByContext:{'eat':{'health':0.07,'happiness':0.1},'decay':{'spoiled food':0.2}},//this basically translates to : "when eaten, generate some health and happiness; when rotting, turn into either nothing or some spoiled food"
-		partOf:'food',
-		category:'food',
-	});*/
 		new G.Res({
 		name:'Berries',
 		desc:'[Berries] taste sweet, but spoil quickly.',
@@ -77,7 +61,14 @@ func:function()
 		partOf:'food',
 		category:'food',
 	});
-		
+	new G.Res({
+		name:'Juice',
+		desc:'[Juice] tastes better than [water].',
+		icon:[0,1,'imageSheet'],
+		turnToByContext:{'eat':{'health':0.08,'happiness':0.2},'decay':{'spoiled food':0.2}},//this basically translates to : "when eaten, generate some health and happiness; when rotting, turn into either nothing or some spoiled food"
+		partOf:'food',
+		category:'food',
+	});
 		//Thorns which come from bushes. can be used to make traps
 		new G.Res({
 		name:'Thorns',
@@ -86,7 +77,7 @@ func:function()
 		partOf:'misc materials',
 		category:'misc',
 	});
-
+		//doesnt work, need to fix
 		new G.Res({
 		name:'Archaic Trap',
 		desc:'[Archaic Trap, Traps] can be used by the hunters to trap animals. (WIP)',
@@ -127,6 +118,16 @@ func:function()
 		req:{'Stone Trapping':true},
 	});
 		
+		//Seeds, Farming
+		new G.Res({
+		name:'Wheat Seed',
+		desc:'[Wheat Seed]s are grown into [Wheat]. TODO:Make farms require seeds',
+		icon:[1,3,'imageSheet'], //TODO: Image for wheat
+		turnToByContext:{'eat':{'health':-0.5,'happiness':-100},'decay':{'Wheat Seed':1}},
+		partOf:'grain',
+		category:'farm',
+	});
+		
 		
 		//Wheat and stuff
 		
@@ -141,7 +142,7 @@ func:function()
 	
 		new G.Res({
 		name:'Wheat Flour',
-		desc:'You can bake [Wheat Flour] to make [Wheat Bread].',
+		desc:'You can bake [Wheat Flour] to make [Bread].',
 		icon:[2,3,'imageSheet'], //TODO: Image for wheat
 		turnToByContext:{'eat':{'health':-0.5,'happiness':-100},'decay':{'spoiled food':0.2}},
 		partOf:'grain',
@@ -149,8 +150,8 @@ func:function()
 	});
 	
 		new G.Res({
-		name:'Wheat Bread',
-		desc:'[Wheat Bread] tastes really good.',
+		name:'Bread',
+		desc:'[Bread] tastes really good.',
 		icon:[0,3,'imageSheet'], //TODO: Image for wheat
 		turnToByContext:{'eat':{'health':3,'happiness':20},'decay':{'spoiled food':0.3,}},
 		partOf:'food',
@@ -302,9 +303,9 @@ func:function()
 		
 		
 	//new Modes for firekeepers to make bread from flour
-	G.getDict('firekeeper').modes['WheatBread']={name:'Make Wheat Bread',desc:'Use Wheat Flour to make Wheat Bread.',req:{'Bread Baking':true},use:{'stone tools':1}};
-	G.getDict('firekeeper').effects.push({type:'convert',from:{'Wheat Flour':1},into:{'Wheat Bread':1},every:5,mode:'WheatBread'});
-	G.getDict('firekeeper').effects.push({type:'convert',from:{'Barley Flour':1},into:{'Barley Bread':1},every:5,mode:'WheatBread'});
+	G.getDict('firekeeper').modes['Bread']={name:'Make Bread',desc:'Use Wheat Flour to make Bread.',req:{'Bread Baking':true},use:{'stone tools':1}};
+	G.getDict('firekeeper').effects.push({type:'convert',from:{'Wheat Flour':1},into:{'Bread':1},every:5,mode:'Bread'});
+	G.getDict('firekeeper').effects.push({type:'convert',from:{'Barley Flour':1},into:{'Bread':1},every:5,mode:'Bread'});
 	
   //New Trait to make people love juice!
   
