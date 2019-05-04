@@ -16,7 +16,7 @@ sheets:{'imageSheet':'https://i.imgur.com/HxvUUkz.png'},//custom stylesheet (not
 func:function()
 	{	
 
-		G.resCategories={
+		new G.resCategories={
 		'farm':{
 			name:'Farm',
 			base:['Wheat'],
