@@ -16,13 +16,42 @@ sheets:{'imageSheet':'https://i.imgur.com/HxvUUkz.png'},//custom stylesheet (not
 func:function()
 	{	
 
-		new G.resCategories={
+			G.resCategories={
+		'main':{
+			name:'Essentials',
+			base:[],
+			side:['population','worker','happiness','health','land','coin'],
+		},
+		'demog':{
+			name:'Demographics',
+			base:['baby','child','adult','elder','worker','sick','wounded'],
+			side:['population','housing','corpse','burial spot'],
+		},
+		'food':{
+			name:'Food & Water',
+			base:[],
+			side:['food','spoiled food','water','muddy water','food storage'],
+		},
 		'farm':{
 			name:'Farm',
 			base:['Wheat'],
 			side:[],
 		},
-		}
+		'build':{
+			name:'Crafting & Construction',
+			base:[],
+			side:['archaic building materials','basic building materials','advanced building materials','precious building materials','material storage'],
+		},
+		'gear':{
+			name:'Gear',
+			base:[],
+			side:[],
+		},
+		'misc':{
+			name:'Miscellaneous',
+			base:[],
+		},
+	};
 	//First we add the new resources 
 	new G.Res({
 		name:'Juice',
