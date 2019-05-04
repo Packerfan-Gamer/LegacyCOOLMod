@@ -127,7 +127,14 @@ func:function()
 		partOf:'grain',
 		category:'farm',
 	});
-		
+		new G.Res({
+		name:'Mushroom',
+		desc:'[Mushrooms]s are fungi. They generally taste alright and decay really slow.',
+		icon:[1,3,'imageSheet'], //TODO: Image for wheat
+		turnToByContext:{'eat':{'health':-0.5,'happiness':-100},'decay':{'Mushroom':0.9,'Herb':0.1}},
+		partOf:'herb',
+		category:'farm',
+	});		
 		
 		//Wheat and stuff
 		
@@ -192,6 +199,7 @@ func:function()
 	//G.getDict('grass').res['gather']['Berries']=0.1;
 	//adding wheat as something that can come from grass
 	G.getDict('grass').res['gather']['Wheat']=0.07;
+	G.getDict('grass').res['gather']['Mushroom']=0.08;
 	G.getDict('grass').res['gather']['Barley']=0.01;
 		//adding a new mode to artisans so they can make juice from fruit
 	G.getDict('artisan').modes['MakeJuice']={name:'Make Juice',desc:'Use fruit and berries to make juice.',req:{'Juice Making':true},use:{'stone tools':1}};
