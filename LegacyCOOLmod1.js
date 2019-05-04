@@ -12,7 +12,7 @@ desc:'A mod that adds cool things to the game. Currently have berries, juice, an
 engineVersion:1,
 manifest:'ModManifest.js',
 requires:['Default dataset*'],
-sheets:{'imageSheet':'https://i.imgur.com/p4GgmBv.png'},//custom stylesheet (note : broken in IE and Edge for the time being)
+sheets:{'imageSheet':'https://i.imgur.com/PS4jxIK.png'},//custom stylesheet (note : broken in IE and Edge for the time being)
 func:function()
 	{	
 //a really ugly way too add a new category in the sidebar. i couldn't figure out how to slip another one in there... hopefully someone can help
