@@ -142,7 +142,7 @@ func:function()
 		name:'Wheat',
 		desc:'[Wheat] tastes unpleasant but can be used for many things. You can grind wheat into flour, or make beer.',
 		icon:[1,3,'imageSheet'], //TODO: Image for wheat
-		turnToByContext:{'eat':{'health':-0.5,'happiness':-100},'decay':{'spoiled food':0.3,'Wheat':0.7}},
+		turnToByContext:{'eat':{'health':-0.5,'happiness':-100},'decay':{'spoiled food':0.1,'Wheat':0.6,'Wheat Seed':0.3}},
 		partOf:'grain',
 		category:'food',
 	});
@@ -160,11 +160,20 @@ func:function()
 		name:'Bread',
 		desc:'[Bread] tastes really good.',
 		icon:[0,3,'imageSheet'], //TODO: Image for wheat
-		turnToByContext:{'eat':{'health':3,'happiness':20},'decay':{'spoiled food':0.3,}},
+		turnToByContext:{'eat':{'health':6,'happiness':20},'decay':{'spoiled food':0.3,}},
 		partOf:'food',
 		category:'food',
 	});
 	
+		new G.Res({
+		name:'Sandwich',
+		desc:'[Sandwich]es tastes really good. Made from [Bread] and [Cooked Meat], they are a simple, yet enjoyable food.',
+		icon:[0,3,'imageSheet'], //TODO: Image for sandwich
+		turnToByContext:{'eat':{'health':10,'happiness':30},'decay':{'spoiled food':0.1,}},
+		partOf:'food',
+		category:'food',
+	});
+		
 		new G.Res({
 		name:'Barley',
 		desc:'[Barley] tastes unpleasant but can be used for many things. You can grind it into flour, which is used in bread-making',
@@ -183,14 +192,7 @@ func:function()
 		category:'food',
 	});
 	
-		new G.Res({
-		name:'Barley Bread',
-		desc:'[Barley Bread] has many health benefits.',
-		icon:[0,3,'imageSheet'], //TODO: Image for wheat
-		turnToByContext:{'eat':{'health':30,'happiness':10},'decay':{'spoiled food':0.3,}},
-		partOf:'food',
-		category:'food',
-	});
+
 	
 		
 	
@@ -217,7 +219,7 @@ func:function()
 	//Then we add a new technology which is required by the gatherers to gain access to the "berry" mode :
 	new G.Tech({
 		name:'plant lore II',
-		desc:'@[gatherer]s can find berries.',
+		desc:'@[gatherer]s can find berries, among other things.',
 		icon:[2,1,'imageSheet'],
 		cost:{'insight':10},
 		req:{'plant lore':true},
@@ -237,7 +239,13 @@ func:function()
 		cost:{'insight':20},
 		req:{'plant lore II':true},
 	});
-	
+		new G.Tech({
+		name:'agriculture II',
+		desc:'May lead to more complex farms, and even some simple meals.',
+		icon:[4,3,'imageSheet'], //WIP
+		cost:{'insight':30},
+		req:{'agriculture':true},
+	});
 		new G.Unit({
 		name:'small farm',
 		desc:'Provides food for your civilization, so you don\'t have too.',
@@ -248,7 +256,7 @@ func:function()
 		modes:{
 			'off':G.MODE_OFF,
 			'any':{name:'Any',icon:[8,8],desc:'Farm using any random seed you find. You may not get optimal results.',use:{'worker':3,'stone tools':3}},
-			'wheat':{name:'Wheat',icon:[1,3,'imageSheet'],desc:'Farm for [Wheat]. It isn\'t very impressive, but it\'ll get you somewhere.',use:{'worker':3,'stone tools':3}},
+			'wheat':{name:'Wheat',icon:[1,3,'imageSheet'],desc:'Farm for [Wheat]. It isn\'t very impressive, but it\'ll get you somewhere.',use:{'worker':3,'stone tools':3,'Wheat Seed':50}},
 			/*'salt':{name:'Salt',icon:[11,7],desc:'Mine for [salt].',req:{'prospecting':true},use:{'worker':3,'metal tools':3}},
 			'copper':{name:'Copper',icon:[9,8],desc:'Mine for [copper ore] with x5 efficiency.',req:{'prospecting':true},use:{'worker':3,'metal tools':3}},
 			'tin':{name:'Tin',icon:[13,8],desc:'Mine for [tin ore] with x5 efficiency.',req:{'prospecting':true},use:{'worker':3,'metal tools':3}},
@@ -270,8 +278,66 @@ func:function()
 		req:{'agriculture':true},
 		category:'production',
 	});
-		
-		
+		new G.Unit({
+		name:'farm',
+		desc:'Provides food for your civilization, so you don\'t have too.',
+		icon:[3,3,'imageSheet'], //TODO: new image
+		cost:{'basic building materials':50},
+		use:{'land':3},
+		//require:{'worker':3,'stone tools':3},
+		modes:{
+			'off':G.MODE_OFF,
+			'any':{name:'Any',icon:[8,8],desc:'Farm using any random seed you find. You may not get optimal results.',use:{'worker':3,'stone tools':3}},
+			'wheat':{name:'Wheat',icon:[1,3,'imageSheet'],desc:'Farm for [Wheat]. The larger fields makes this very effective, however, you will need to provide water.',use:{'worker':3,'stone tools':3,'water':50,'Wheat Seed':200}},
+			/*'salt':{name:'Salt',icon:[11,7],desc:'Mine for [salt].',req:{'prospecting':true},use:{'worker':3,'metal tools':3}},
+			'copper':{name:'Copper',icon:[9,8],desc:'Mine for [copper ore] with x5 efficiency.',req:{'prospecting':true},use:{'worker':3,'metal tools':3}},
+			'tin':{name:'Tin',icon:[13,8],desc:'Mine for [tin ore] with x5 efficiency.',req:{'prospecting':true},use:{'worker':3,'metal tools':3}},
+			'iron':{name:'Iron',icon:[10,8],desc:'Mine for [iron ore] with x5 efficiency.',req:{'prospecting':true},use:{'worker':3,'metal tools':3}},
+			'gold':{name:'Gold',icon:[11,8],desc:'Mine for [gold ore] with x5 efficiency.',req:{'prospecting':true},use:{'worker':3,'metal tools':3}},*/
+		},
+		effects:[
+			{type:'gather',context:'gather',amount:10,max:30,mode:'any'},
+			{type:'gather',context:'gather',what:{'herb':10},max:30,notMode:'off'},
+			{type:'gather',context:'gather',what:{'Wheat':200},max:30,mode:'wheat'},
+			/*{type:'gather',context:'mine',what:{'salt':50},max:30,mode:'salt'},
+			{type:'gather',context:'mine',what:{'copper ore':50},max:30,mode:'copper'},
+			{type:'gather',context:'mine',what:{'tin ore':50},max:30,mode:'tin'},
+			{type:'gather',context:'mine',what:{'iron ore':50},max:30,mode:'iron'},
+			{type:'gather',context:'mine',what:{'gold ore':50},max:30,mode:'gold'},
+			{type:'function',func:unitGetsConverted({'wounded':1},0.001,0.01,'[X] [people].','mine collapsed, wounding its miners','mines collapsed, wounding their miners'),chance:1/50}*/
+		],
+		gizmos:true,
+		req:{'agriculture II':true},
+		category:'production',
+	});		
+		new G.Unit({
+		name:'cook',
+		desc:'@starts with the ability to make simple meals@gains more recipes as technology progresses<>A [cook] dedicates their life to making meals by hand.',
+		icon:[0,0,'imagesheet'],
+		cost:{},
+		use:{'worker':1},
+		upkeep:{'coin':0.1},
+		gizmos:true,
+		modes:{
+			'sandwich':{name:'Make a Sandwich',icon:[0,0,'imageSheet'],desc:'Make a simple sandwich out of [Bread] and [cooked meat].'},
+			/*'knap bone':{name:'Knap bone',icon:[0,9,8,7],desc:'Turn [bone]s into [knapped tools].',req:{'bone-working':true}},
+			'stone tools':{name:'Craft stone tools',icon:[1,9],desc:'Turn [stone]s and [stick]s into [stone tools].',req:{'tool-making':true},use:{'knapped tools':1}},
+			'stone weapons':{name:'Craft stone weapons',icon:[5,9],desc:'Turn [stone]s and [stick]s into [stone weapons].',req:{'spears':true},use:{'knapped tools':1}},
+			'bows':{name:'Craft bows',icon:[6,9],desc:'Turn [stone]s and [stick]s into [bow]s.',req:{'bows':true},use:{'stone tools':1}},
+			'baskets':{name:'Weave baskets',icon:[14,7],desc:'Turn [stick]s into [basket]s.',req:{'basket-weaving':true},use:{'knapped tools':1}},
+		*/},
+		effects:[
+			{type:'convert',from:{'Bread':1,'cooked meat':1},into:{'Sandwich':5},every:5,mode:'sandwich'},
+			/*{type:'convert',from:{'bone':1},into:{'knapped tools':1},every:5,mode:'knap bone'},
+			{type:'convert',from:{'stick':1,'stone':1},into:{'stone tools':1},every:8,mode:'stone tools'},
+			{type:'convert',from:{'stick':1,'stone':1},into:{'stone weapons':1},every:8,mode:'stone weapons'},
+			{type:'convert',from:{'stick':1,'stone':1},into:{'bow':1},every:10,mode:'bows'},
+			{type:'convert',from:{'stick':15},into:{'basket':1},every:10,mode:'baskets'},
+			{type:'mult',value:1.2,req:{'ground stone tools':true}}
+		*/],
+		req:{'agriculture II':true},
+		category:'crafting',
+	});	
 		
 		
 	//new tech to allow mass graves
