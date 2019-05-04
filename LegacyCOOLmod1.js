@@ -19,7 +19,7 @@ func:function()
 		G.resCategories={
 		'farm':{
 			name:'Farm',
-			base:[],
+			base:['Wheat'],
 			side:[],
 		},
 		}
