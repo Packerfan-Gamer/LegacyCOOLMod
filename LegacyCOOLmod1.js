@@ -16,7 +16,13 @@ sheets:{'imageSheet':'https://i.imgur.com/HxvUUkz.png'},//custom stylesheet (not
 func:function()
 	{	
 
-	
+		G.resCategories={
+		'farm':{
+			name:'Farm',
+			base:[],
+			side:[],
+		},
+		}
 	//First we add the new resources 
 	new G.Res({
 		name:'Juice',
