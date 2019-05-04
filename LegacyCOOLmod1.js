@@ -12,7 +12,7 @@ desc:'A mod that adds cool things to the game. Currently have berries, juice, an
 engineVersion:1,
 manifest:'ModManifest.js',
 requires:['Default dataset*'],
-sheets:{'imageSheet':'https://i.imgur.com/HxvUUkz.png'},//custom stylesheet (note : broken in IE and Edge for the time being)
+sheets:{'imageSheet':'https://i.imgur.com/p4GgmBv.png'},//custom stylesheet (note : broken in IE and Edge for the time being)
 func:function()
 	{	
 //a really ugly way too add a new category in the sidebar. i couldn't figure out how to slip another one in there... hopefully someone can help
@@ -122,7 +122,7 @@ func:function()
 		new G.Res({
 		name:'Wheat Seed',
 		desc:'[Wheat Seed]s are grown into [Wheat]. TODO:Make farms require seeds',
-		icon:[1,3,'imageSheet'], //TODO: Image for wheat
+		icon:[1,4,'imageSheet'], //TODO: Image for wheat
 		turnToByContext:{'eat':{'health':-0.5,'happiness':-100},'decay':{'Wheat Seed':1}},
 		partOf:'grain',
 		category:'farm',
@@ -130,7 +130,7 @@ func:function()
 		new G.Res({
 		name:'Mushroom',
 		desc:'[Mushrooms]s are fungi. They generally taste alright and decay really slow.',
-		icon:[1,3,'imageSheet'], //TODO: Image for wheat
+		icon:[0,4,'imageSheet'], //TODO: Image for wheat
 		turnToByContext:{'eat':{'health':-0.5,'happiness':-100},'decay':{'Mushroom':0.9,'Herb':0.1}},
 		partOf:'herb',
 		category:'farm',
