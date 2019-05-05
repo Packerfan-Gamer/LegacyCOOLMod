@@ -123,7 +123,15 @@ func:function()
 		name:'Wheat Seed',
 		desc:'[Wheat Seed]s are grown into [Wheat]. TODO:Make farms require seeds',
 		icon:[1,4,'imageSheet'], //TODO: Image for wheat
-		turnToByContext:{'eat':{'health':-0.5,'happiness':-100},'decay':{'Wheat Seed':1}},
+		turnToByContext:{'eat':{'health':-0.5,'happiness':-100},'decay':{'Wheat Seed':0.8,'herb':0.2}},
+		partOf:'grain',
+		category:'farm',
+	});
+		new G.Res({
+		name:'lettuce seed',
+		desc:'[lettuce seed]s are grown into [lettuce]. The seeds are edible, but don\'t taste very good.',
+		icon:[1,4,'imageSheet'], //TODO: Image for wheat
+		turnToByContext:{'eat':{'health':-0.5,'happiness':-100},'decay':{'lettuce seed':0.8,'herb':0.2}},
 		partOf:'grain',
 		category:'farm',
 	});
@@ -131,7 +139,7 @@ func:function()
 		name:'Mushroom',
 		desc:'[Mushroom]s are fungi. They generally taste alright and decay really slow.',
 		icon:[0,4,'imageSheet'], //TODO: Image for wheat
-		turnToByContext:{'eat':{'health':-0.5,'happiness':-100},'decay':{'Mushroom':0.9,'Herb':0.1}},
+		turnToByContext:{'eat':{'health':-0.5,'happiness':-100},'decay':{'Mushroom':0.8,'Herb':0.2}},
 		partOf:'herb',
 		category:'farm',
 	});		
@@ -155,24 +163,6 @@ func:function()
 		partOf:'grain',
 		category:'farm',
 	});
-	
-		new G.Res({
-		name:'Bread',
-		desc:'[Bread] tastes really good.',
-		icon:[0,3,'imageSheet'], //TODO: Image for wheat
-		turnToByContext:{'eat':{'health':6,'happiness':20},'decay':{'spoiled food':0.3,}},
-		partOf:'food',
-		category:'food',
-	});
-	
-		new G.Res({
-		name:'Sandwich',
-		desc:'[Sandwich]es tastes really good. Made from [Bread] and [Cooked Meat], they are a simple, yet enjoyable food.',
-		icon:[0,3,'imageSheet'], //TODO: Image for sandwich
-		turnToByContext:{'eat':{'health':10,'happiness':30},'decay':{'spoiled food':0.1,}},
-		partOf:'food',
-		category:'food',
-	});
 		
 		new G.Res({
 		name:'Barley',
@@ -191,9 +181,41 @@ func:function()
 		partOf:'grain',
 		category:'farm',
 	});
-	
-
-	
+		new G.Res({
+		name:'Bread',
+		desc:'[Bread] tastes really good.',
+		icon:[0,3,'imageSheet'], //TODO: Image for wheat
+		turnToByContext:{'eat':{'health':6,'happiness':20},'decay':{'spoiled food':0.3,}},
+		partOf:'food',
+		category:'food',
+	});
+	new G.Res({
+		name:'lettuce',
+		desc:'[lettuce] is an [herb]. It\'s used to make simple salads.',
+		icon:[0,0,'imageSheet'], //TODO: Image for wheat
+		turnToByContext:{'eat':{'health':2,'happiness':-1},'decay':{'spoiled food':0.3,'lettuce seed':0.7}},
+		partOf:'herb',
+		category:'farm',
+	});
+	//========
+	//MEALS
+	//========
+	new G.Res({
+		name:'Sandwich',
+		desc:'[Sandwich]es tastes really good. Made from [Bread] and [Cooked Meat], they are a simple, yet enjoyable food.',
+		icon:[0,3,'imageSheet'], //TODO: Image for sandwich
+		turnToByContext:{'eat':{'health':10,'happiness':30},'decay':{'spoiled food':0.1,}},
+		partOf:'food',
+		category:'food',
+	});
+	new G.Res({
+		name:'Salad',
+		desc:'A simple, yet enjoyable food.',
+		icon:[0,0,'imageSheet'], //TODO: Image for sandwich
+		turnToByContext:{'eat':{'health':10,'happiness':30},'decay':{'spoiled food':0.1,}},
+		partOf:'food',
+		category:'food',
+	});
 		
 	
 	//Then we augment the base data to incorporate our new resources :
@@ -202,6 +224,7 @@ func:function()
 	//adding wheat as something that can come from grass
 	G.getDict('grass').res['gather']['Wheat']=0.05;
 	G.getDict('grass').res['gather']['Mushroom']=0.06;
+	G.getDict('grass').res['gather']['lettuce']=0.05;
 	G.getDict('grass').res['gather']['Barley']=0.01;
 		//adding a new mode to artisans so they can make juice from fruit
 	G.getDict('artisan').modes['MakeJuice']={name:'Make Juice',desc:'Use fruit and berries to make juice.',req:{'Juice Making':true},use:{'stone tools':1}};
@@ -256,9 +279,9 @@ func:function()
 		modes:{
 			'off':G.MODE_OFF,
 			'any':{name:'Any',icon:[8,8],desc:'Farm using any random seed you find. You may not get optimal results.',use:{'worker':3,'stone tools':3}},
-			'wheat':{name:'Wheat',icon:[1,3,'imageSheet'],desc:'Farm for [Wheat]. It isn\'t very impressive, but it\'ll get you somewhere.',use:{'worker':3,'stone tools':3,'Wheat Seed':50}},
-			/*'salt':{name:'Salt',icon:[11,7],desc:'Mine for [salt].',req:{'prospecting':true},use:{'worker':3,'metal tools':3}},
-			'copper':{name:'Copper',icon:[9,8],desc:'Mine for [copper ore] with x5 efficiency.',req:{'prospecting':true},use:{'worker':3,'metal tools':3}},
+			'wheat':{name:'Wheat',icon:[1,3,'imageSheet'],desc:'Farm for [Wheat]. It isn\'t very impressive, but it\'ll get you somewhere.',use:{'worker':3,'stone tools':3,'Wheat Seed':100}},
+			'lettuce':{name:'Lettuce',icon:[0,0,'imageSheet'],desc:'Farm for [lettuce].',use:{'worker':3,'stone tools':3,'lettuce seeds':100}},
+			/*'copper':{name:'Copper',icon:[9,8],desc:'Mine for [copper ore] with x5 efficiency.',req:{'prospecting':true},use:{'worker':3,'metal tools':3}},
 			'tin':{name:'Tin',icon:[13,8],desc:'Mine for [tin ore] with x5 efficiency.',req:{'prospecting':true},use:{'worker':3,'metal tools':3}},
 			'iron':{name:'Iron',icon:[10,8],desc:'Mine for [iron ore] with x5 efficiency.',req:{'prospecting':true},use:{'worker':3,'metal tools':3}},
 			'gold':{name:'Gold',icon:[11,8],desc:'Mine for [gold ore] with x5 efficiency.',req:{'prospecting':true},use:{'worker':3,'metal tools':3}},*/
@@ -267,8 +290,8 @@ func:function()
 			{type:'gather',context:'gather',amount:10,max:30,mode:'any'},
 			{type:'gather',context:'gather',what:{'herb':5},max:30,notMode:'off'},
 			{type:'gather',context:'gather',what:{'Wheat':50},max:30,mode:'wheat'},
-			/*{type:'gather',context:'mine',what:{'salt':50},max:30,mode:'salt'},
-			{type:'gather',context:'mine',what:{'copper ore':50},max:30,mode:'copper'},
+			{type:'gather',context:'gather',what:{'lettuce':50},max:30,mode:'lettuce'},
+			/*{type:'gather',context:'mine',what:{'copper ore':50},max:30,mode:'copper'},
 			{type:'gather',context:'mine',what:{'tin ore':50},max:30,mode:'tin'},
 			{type:'gather',context:'mine',what:{'iron ore':50},max:30,mode:'iron'},
 			{type:'gather',context:'mine',what:{'gold ore':50},max:30,mode:'gold'},
@@ -288,9 +311,9 @@ func:function()
 		modes:{
 			'off':G.MODE_OFF,
 			'any':{name:'Any',icon:[8,8],desc:'Farm using any random seed you find. You may not get optimal results.',use:{'worker':3,'stone tools':3}},
-			'wheat':{name:'Wheat',icon:[1,3,'imageSheet'],desc:'Farm for [Wheat]. The larger fields makes this very effective, however, you will need to provide water.',use:{'worker':3,'stone tools':3,'water':50,'Wheat Seed':200}},
-			/*'salt':{name:'Salt',icon:[11,7],desc:'Mine for [salt].',req:{'prospecting':true},use:{'worker':3,'metal tools':3}},
-			'copper':{name:'Copper',icon:[9,8],desc:'Mine for [copper ore] with x5 efficiency.',req:{'prospecting':true},use:{'worker':3,'metal tools':3}},
+			'wheat':{name:'Wheat',icon:[1,3,'imageSheet'],desc:'Farm for [Wheat]. The larger fields makes this very effective, however, you will need to provide water.',use:{'worker':3,'stone tools':3,'water':50,'Wheat Seed':300}},
+			'lettuce':{name:'Lettuce',icon:[0,0,'imageSheet'],desc:'Farm for [lettuce].',use:{'worker':3,'stone tools':3,'water':100,'lettuce seed':300}},
+			/*'copper':{name:'Copper',icon:[9,8],desc:'Mine for [copper ore] with x5 efficiency.',req:{'prospecting':true},use:{'worker':3,'metal tools':3}},
 			'tin':{name:'Tin',icon:[13,8],desc:'Mine for [tin ore] with x5 efficiency.',req:{'prospecting':true},use:{'worker':3,'metal tools':3}},
 			'iron':{name:'Iron',icon:[10,8],desc:'Mine for [iron ore] with x5 efficiency.',req:{'prospecting':true},use:{'worker':3,'metal tools':3}},
 			'gold':{name:'Gold',icon:[11,8],desc:'Mine for [gold ore] with x5 efficiency.',req:{'prospecting':true},use:{'worker':3,'metal tools':3}},*/
@@ -299,8 +322,8 @@ func:function()
 			{type:'gather',context:'gather',amount:10,max:30,mode:'any'},
 			{type:'gather',context:'gather',what:{'herb':10},max:30,notMode:'off'},
 			{type:'gather',context:'gather',what:{'Wheat':200},max:30,mode:'wheat'},
-			/*{type:'gather',context:'mine',what:{'salt':50},max:30,mode:'salt'},
-			{type:'gather',context:'mine',what:{'copper ore':50},max:30,mode:'copper'},
+			{type:'gather',context:'gather',what:{'lettuce':200},max:30,mode:'lettuce'},
+			/*{type:'gather',context:'mine',what:{'copper ore':50},max:30,mode:'copper'},
 			{type:'gather',context:'mine',what:{'tin ore':50},max:30,mode:'tin'},
 			{type:'gather',context:'mine',what:{'iron ore':50},max:30,mode:'iron'},
 			{type:'gather',context:'mine',what:{'gold ore':50},max:30,mode:'gold'},
@@ -320,16 +343,16 @@ func:function()
 		gizmos:true,
 		modes:{
 			'sandwich':{name:'Make a Sandwich',icon:[0,0,'imageSheet'],desc:'Make a simple sandwich out of [Bread] and [cooked meat].'},
-			/*'knap bone':{name:'Knap bone',icon:[0,9,8,7],desc:'Turn [bone]s into [knapped tools].',req:{'bone-working':true}},
-			'stone tools':{name:'Craft stone tools',icon:[1,9],desc:'Turn [stone]s and [stick]s into [stone tools].',req:{'tool-making':true},use:{'knapped tools':1}},
+			'salad':{name:'Make Salad',icon:[0,0,'imageSheet'],desc:'Make a simple salad using [lettuce] and [herb]s.'},
+			/*'stone tools':{name:'Craft stone tools',icon:[1,9],desc:'Turn [stone]s and [stick]s into [stone tools].',req:{'tool-making':true},use:{'knapped tools':1}},
 			'stone weapons':{name:'Craft stone weapons',icon:[5,9],desc:'Turn [stone]s and [stick]s into [stone weapons].',req:{'spears':true},use:{'knapped tools':1}},
 			'bows':{name:'Craft bows',icon:[6,9],desc:'Turn [stone]s and [stick]s into [bow]s.',req:{'bows':true},use:{'stone tools':1}},
 			'baskets':{name:'Weave baskets',icon:[14,7],desc:'Turn [stick]s into [basket]s.',req:{'basket-weaving':true},use:{'knapped tools':1}},
 		*/},
 		effects:[
 			{type:'convert',from:{'Bread':1,'cooked meat':1},into:{'Sandwich':5},every:5,mode:'sandwich'},
-			/*{type:'convert',from:{'bone':1},into:{'knapped tools':1},every:5,mode:'knap bone'},
-			{type:'convert',from:{'stick':1,'stone':1},into:{'stone tools':1},every:8,mode:'stone tools'},
+			{type:'convert',from:{'lettuce':5,'herb':5},into:{'salad':10},every:5,mode:'salad'},
+			/*{type:'convert',from:{'stick':1,'stone':1},into:{'stone tools':1},every:8,mode:'stone tools'},
 			{type:'convert',from:{'stick':1,'stone':1},into:{'stone weapons':1},every:8,mode:'stone weapons'},
 			{type:'convert',from:{'stick':1,'stone':1},into:{'bow':1},every:10,mode:'bows'},
 			{type:'convert',from:{'stick':15},into:{'basket':1},every:10,mode:'baskets'},
@@ -471,9 +494,6 @@ func:function()
 		}
 	},mode:'MassUndertaker'}
 ],
-		
-		
-	
 	//newTHINGY
 	
 		new G.Res({
@@ -494,9 +514,7 @@ func:function()
 				//G.gain('spoiled food',randomFloor(spent));
 			}
 		},
-	});
-	
-		
+	});		
 		//CHURCHES!!
 		
 		new G.Unit({
