@@ -129,7 +129,7 @@ func:function()
 	});
 		new G.Res({
 		name:'Mushroom',
-		desc:'[Mushrooms]s are fungi. They generally taste alright and decay really slow.',
+		desc:'[Mushroom]s are fungi. They generally taste alright and decay really slow.',
 		icon:[0,4,'imageSheet'], //TODO: Image for wheat
 		turnToByContext:{'eat':{'health':-0.5,'happiness':-100},'decay':{'Mushroom':0.9,'Herb':0.1}},
 		partOf:'herb',
@@ -144,7 +144,7 @@ func:function()
 		icon:[1,3,'imageSheet'], //TODO: Image for wheat
 		turnToByContext:{'eat':{'health':-0.5,'happiness':-100},'decay':{'spoiled food':0.1,'Wheat':0.6,'Wheat Seed':0.3}},
 		partOf:'grain',
-		category:'food',
+		category:'farm',
 	});
 	
 		new G.Res({
@@ -153,7 +153,7 @@ func:function()
 		icon:[2,3,'imageSheet'], //TODO: Image for wheat
 		turnToByContext:{'eat':{'health':-0.5,'happiness':-100},'decay':{'spoiled food':0.2}},
 		partOf:'grain',
-		category:'food',
+		category:'farm',
 	});
 	
 		new G.Res({
@@ -180,7 +180,7 @@ func:function()
 		icon:[0,0,'imageSheet'], //TODO: Image for wheat
 		turnToByContext:{'eat':{'health':-0.5,'happiness':-100},'decay':{'spoiled food':0.3}},
 		partOf:'grain',
-		category:'food',
+		category:'farm',
 	});
 		
 		new G.Res({
@@ -189,7 +189,7 @@ func:function()
 		icon:[2,3,'imageSheet'], //TODO: Image for wheat
 		turnToByContext:{'eat':{'health':-0.5,'happiness':-100},'decay':{'spoiled food':0.2}},
 		partOf:'grain',
-		category:'food',
+		category:'farm',
 	});
 	
 
@@ -200,8 +200,8 @@ func:function()
 		//adding berries as something that can be gathered from grass
 	//G.getDict('grass').res['gather']['Berries']=0.1;
 	//adding wheat as something that can come from grass
-	G.getDict('grass').res['gather']['Wheat']=0.07;
-	G.getDict('grass').res['gather']['Mushroom']=0.08;
+	G.getDict('grass').res['gather']['Wheat']=0.05;
+	G.getDict('grass').res['gather']['Mushroom']=0.06;
 	G.getDict('grass').res['gather']['Barley']=0.01;
 		//adding a new mode to artisans so they can make juice from fruit
 	G.getDict('artisan').modes['MakeJuice']={name:'Make Juice',desc:'Use fruit and berries to make juice.',req:{'Juice Making':true},use:{'stone tools':1}};
@@ -280,7 +280,7 @@ func:function()
 	});
 		new G.Unit({
 		name:'farm',
-		desc:'Provides food for your civilization, so you don\'t have too.',
+		desc:'Provides food for your civilization, so you don\'t have too. Equipped with larger fields to grow more crops, however it will require irrigation.',
 		icon:[3,3,'imageSheet'], //TODO: new image
 		cost:{'basic building materials':50},
 		use:{'land':3},
@@ -313,7 +313,7 @@ func:function()
 		new G.Unit({
 		name:'cook',
 		desc:'@starts with the ability to make simple meals@gains more recipes as technology progresses<>A [cook] dedicates their life to making meals by hand.',
-		icon:[0,0,'imagesheet'],
+		icon:[0,0,'imageSheet'],
 		cost:{},
 		use:{'worker':1},
 		upkeep:{'coin':0.1},
@@ -345,7 +345,7 @@ func:function()
 		name:'Mass Burial',
 		desc:'Unlocks Mass Graves, which can store 10 people in one grave.',
 		icon:[2,2,'imageSheet'],
-		cost:{'insight':20},
+		cost:{'insight':15},
 		req:{'burial':true},
 	});
 		
@@ -364,14 +364,14 @@ func:function()
 		name:'Grinding',
 		desc:'Unlocks the secrets of grinding grain into flour.',
 		icon:[3,1,'imageSheet'],
-		cost:{'insight':10},
+		cost:{'insight':5},
 		req:{'sedentism':true},
 	});
 		new G.Tech({
 		name:'Bread Baking',
 		desc:'Unlocks the secrets of baking bread.',
 		icon:[3,0,'imageSheet'],
-		cost:{'insight':15},
+		cost:{'insight':5},
 		req:{'Grinding':true, 'fire-making':true},
 	});
 		
@@ -390,10 +390,19 @@ func:function()
 		chance:10,
 		req:{'Juice Making':true},
 		effects:[
-			{type:'function',func:function(){G.getDict('Juice').turnToByContext['eat']['happiness']=0.2;}}
+			{type:'function',func:function(){G.getDict('Juice').turnToByContext['eat']['happiness']=0.5;}}
     ]
     });
-    
+    new G.Trait({
+		name:'Sandwich Culture',
+		desc:'@your people appreciate [Sandwich] twice as much and will be twice as happy from consuming it.',
+		icon:[2,0,'imageSheet'],
+		chance:10,
+		req:{'agriculture II':true},
+		effects:[
+			{type:'function',func:function(){G.getDict('Sandwich').turnToByContext['eat']['happiness']=50;}}
+    ]
+    });  
 	//MASS-GRAVES
 
 	
