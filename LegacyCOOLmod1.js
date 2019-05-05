@@ -208,14 +208,14 @@ func:function()
 		partOf:'food',
 		category:'food',
 	});
-	new G.Res({
+	/*new G.Res({
 		name:'Salad',
 		desc:'A simple, yet enjoyable food.',
 		icon:[0,0,'imageSheet'], //TODO: Image for sandwich
 		turnToByContext:{'eat':{'health':10,'happiness':30},'decay':{'spoiled food':0.1,}},
 		partOf:'food',
 		category:'food',
-	});
+	});*/
 		
 	
 	//Then we augment the base data to incorporate our new resources :
