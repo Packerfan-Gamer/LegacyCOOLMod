@@ -1,1 +1,1 @@
-//REQUIRES THE LEGACY BEES MOD, GET IT HERE: https://rawgit.com/Shadowclaimer/LegacyBees/master/modBees.js
+//REQUIRES THE LEGACY BEES MOD, GET IT HERE: https://cdn.jsdelivr.net/gh/Shadowclaimer/LegacyBees/modBees.js
